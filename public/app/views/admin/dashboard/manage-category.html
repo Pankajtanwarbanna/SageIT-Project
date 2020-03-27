@@ -1,0 +1,142 @@
+<!-- Page Header -->
+<div class="dt-page__header">
+    <h1 class="dt-page__title">Manage Categories</h1>
+</div>
+
+<!-- Grid -->
+<div class="row dt-masonry">
+
+    <!-- Grid Item - Add New Department -->
+    <div class="col-md-6 dt-masonry__item">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Header -->
+            <div class="dt-card__header">
+
+                <!-- Card Heading -->
+                <div class="dt-card__heading">
+                    <h3 class="dt-card__title">All Departments</h3>
+                </div>
+                <!-- /card heading -->
+
+            </div>
+            <!-- /card header -->
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+
+                <div class="alert alert-success" role="alert" ng-show="manageCategory.removeDepartmentSuccessMsg">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>{{ manageCategory.removeDepartmentSuccessMsg }}</p>
+                </div>
+
+                <div class="alert alert-danger" role="alert" ng-show="manageCategory.removeDepartmentErrorMsg">
+                    <h4 class="alert-heading">Oops!</h4>
+                    <p>{{ manageCategory.removeDepartmentErrorMsg }}</p>
+                </div>
+
+                <button type="button" ng-repeat="department in manageCategory.departments" ng-click="manageCategory.removeDepartment(department._id)" class="btn btn-danger mr-2 mb-2">{{ department.department }} <i class="icon icon-trash pl-4"></i> </button>
+            </div>
+            <!-- /card body -->
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+                <form ng-submit="manageCategory.addNewDepartment(departmentData);" class="mb-4" ng-show="!manageCategory.addDepartmentSuccessMsg">
+                    <div class="form-row">
+                        <div class="col-sm-8 mb-3">
+                            <label>Department</label>
+                            <input class="form-control" type="text" name="name" placeholder="Enter new department" ng-model="manageCategory.departmentData.department" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add Department </button>
+                </form>
+
+                <div class="alert alert-success" role="alert" ng-show="manageCategory.addDepartmentSuccessMsg">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>{{ manageCategory.addDepartmentSuccessMsg }}</p>
+                </div>
+
+                <div class="alert alert-danger" role="alert" ng-show="manageCategory.addDepartmentErrorMsg">
+                    <h4 class="alert-heading">Oops!</h4>
+                    <p>{{ manageCategory.addDepartmentErrorMsg }}</p>
+                </div>
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+    </div>
+    <!-- /grid item -->
+
+    <!-- Grid Item - Add New Position -->
+    <div class="col-md-6 dt-masonry__item">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Header -->
+            <div class="dt-card__header">
+
+                <!-- Card Heading -->
+                <div class="dt-card__heading">
+                    <h3 class="dt-card__title">All Positions</h3>
+                </div>
+                <!-- /card heading -->
+
+            </div>
+            <!-- /card header -->
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+
+                <div class="alert alert-success" role="alert" ng-show="manageCategory.removePositionSuccessMsg">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>{{ manageCategory.removePositionSuccessMsg }}</p>
+                </div>
+
+                <div class="alert alert-danger" role="alert" ng-show="manageCategory.removePositionErrorMsg">
+                    <h4 class="alert-heading">Oops!</h4>
+                    <p>{{ manageCategory.removePositionErrorMsg }}</p>
+                </div>
+
+                <button type="button" ng-repeat="position in manageCategory.positions" ng-click="manageCategory.removePosition(position._id)" class="btn btn-danger mr-2 mb-2">{{ position.position }} <i class="icon icon-trash pl-4"></i> </button>
+            </div>
+            <!-- /card body -->
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+                <form ng-submit="manageCategory.addNewPosition(positionData);" class="mb-4" ng-show="!manageCategory.addPositionSuccessMsg">
+                    <div class="form-row">
+                        <div class="col-sm-8 mb-3">
+                            <label>Position</label>
+                            <input class="form-control" type="text" name="name" placeholder="Enter position" ng-model="manageCategory.positionData.position" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add Position </button>
+                </form>
+
+                <div class="alert alert-success" role="alert" ng-show="manageCategory.addPositionSuccessMsg">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>{{ manageCategory.addPositionSuccessMsg }}</p>
+                </div>
+
+                <div class="alert alert-danger" role="alert" ng-show="manageCategory.addPositionErrorMsg">
+                    <h4 class="alert-heading">Oops!</h4>
+                    <p>{{ manageCategory.addPositionErrorMsg }}</p>
+                </div>
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+    </div>
+    <!-- /grid item -->
+</div>
+
+

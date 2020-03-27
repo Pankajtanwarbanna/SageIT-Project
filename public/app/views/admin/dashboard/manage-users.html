@@ -1,0 +1,95 @@
+<h1> Users</h1>
+
+<div class="row">
+
+    <!-- Filter Card -->
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+                <div class="form-row">
+                    <div class="col-sm-3 mb-3">
+                        <label>Select Permission :</label>
+                        <select class="form-control" ng-model="FilterPermission" required>
+                            <option value="">-- Select Permission --</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <label>Select Department :</label>
+                        <select class="form-control" ng-model="FilterDepartment" required>
+                            <option value="">-- Select Department --</option>
+                            <option ng-repeat="department in userManagement.departments" value="{{ department.department }}">{{ department.department }}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <label>Select Position :</label>
+                        <select class="form-control" ng-model="FilterPosition" required>
+                            <option value="">-- Select position --</option>
+                            <option ng-repeat="position in userManagement.positions" value="{{ position.position }}">{{ position.position }}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <label>Filter by Location :</label>
+                        <input class="form-control" type="text" ng-model="FilterBranch" placeholder="Filter by Location/Branch">
+                    </div>
+                    <span class="text-center">Total {{ users.length }} result(s) available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Item -->
+    <div class="col-xl-12" ng-show="users.length > 0">
+
+        <!-- Card -->
+        <div class="dt-card overflow-hidden">
+
+            <!-- Card Body -->
+            <div class="dt-card__body p-0">
+
+                <!-- Tables -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th class="text-uppercase" scope="col">Name</th>
+                            <th class="text-uppercase" scope="col">Email</th>
+                            <th class="text-uppercase" scope="col">Permission</th>
+                            <th class="text-uppercase" scope="col">Department</th>
+                            <th class="text-uppercase" scope="col">Position</th>
+                            <th class="text-uppercase" scope="col">Branch</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in users=(userManagement.users | filter : { permission : FilterPermission, department : FilterDepartment, position : FilterPosition, branch : FilterBranch  })">
+                            <th scope="row">{{ $index + 1}}</th>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.permission }}</td>
+                            <td>{{ user.department }}</td>
+                            <td>{{ user.position }}</td>
+                            <td>{{ user.branch }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /tables -->
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+    </div>
+    <!-- /grid item -->
+
+
+</div>
