@@ -93,6 +93,71 @@ var app = angular.module('userRoutes', ['ngRoute'])
 
 
             // admin dashboard
+            .when('/manage-assets', {
+                templateUrl : '/app/views/admin/dashboard/manage-assets.html',
+                controller : 'assetsManagementCtrl',
+                controllerAs : 'assetsManagement',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/add-asset', {
+                templateUrl : '/app/views/admin/dashboard/add-asset.html',
+                controller : 'assetsManagementCtrl',
+                controllerAs : 'assetsManagement',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+
+            .when('/manage-projects', {
+                templateUrl : '/app/views/admin/dashboard/manage-projects.html',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/manage-attendance', {
+                templateUrl : '/app/views/admin/dashboard/manage-attendance.html',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/manage-leaves', {
+                templateUrl : '/app/views/admin/dashboard/manage-leaves.html',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/add-notice', {
+                templateUrl : '/app/views/admin/dashboard/add-notice.html',
+                controller : 'noticeManagementCtrl',
+                controllerAs : 'noticeManagement',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/editNotice/:noticeID', {
+                templateUrl : '/app/views/admin/dashboard/editNotice.html',
+                controller : 'noticeManagementCtrl',
+                controllerAs : 'noticeManagement',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/manage-notice-board', {
+                templateUrl : '/app/views/admin/dashboard/manage-notice-board.html',
+                controller : 'noticeManagementCtrl',
+                controllerAs : 'noticeManagement',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/manage-recruitment', {
+                templateUrl : '/app/views/admin/dashboard/manage-recruitment.html',
+                authenticated : true,
+                permission : 'admin'
+            })
+
             .when('/create-new-user', {
                 templateUrl : '/app/views/users/authentication/register.html',
                 controller : 'regCtrl',

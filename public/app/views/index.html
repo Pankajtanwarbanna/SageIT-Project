@@ -273,13 +273,67 @@
 
                                 <!-- Menu Item -->
                                 <li class="dt-side-nav__item">
-                                    <a href="/" class="dt-side-nav__link" title="Metrics">
+                                    <a href="/" class="dt-side-nav__link" title="Home">
                                         <i class="icon icon-home icon-fw icon-lg"></i>
                                         <span class="dt-side-nav__text">Home</span>
                                     </a>
                                 </li>
-
+                                <!-- User is logged in -->
                                 <div ng-show="main.isLoggedIn && !main.authorized">
+
+                                    <!-- Menu Header -->
+                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                        <span class="dt-side-nav__text">Employee Facilities</span>
+                                    </li>
+                                    <!-- /menu header -->
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/courses" class="dt-side-nav__link" title="Assets & Benefits">
+                                            <i class="icon icon-graduation icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Assets & Benefits</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/courses" class="dt-side-nav__link" title="Project Status">
+                                            <i class="icon icon-graduation icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Project Status</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/courses" class="dt-side-nav__link" title="Attendance">
+                                            <i class="icon icon-graduation icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Attendance</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/courses" class="dt-side-nav__link" title="Leaves Management">
+                                            <i class="icon icon-graduation icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Leaves Management</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/courses" class="dt-side-nav__link" title="Notice Board">
+                                            <i class="icon icon-graduation icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Notice Board</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="dt-side-nav__item">
+                                        <a href="/courses" class="dt-side-nav__link" title="Recruitment Request">
+                                            <i class="icon icon-graduation icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Recruitment Request</span>
+                                        </a>
+                                    </li>
+
                                     <!-- Menu Header -->
                                     <li class="dt-side-nav__item dt-side-nav__header">
                                         <span class="dt-side-nav__text">Courses</span>
@@ -288,13 +342,13 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/courses" class="dt-side-nav__link" title="Metrics">
+                                        <a href="/courses" class="dt-side-nav__link" title="Courses">
                                             <i class="icon icon-graduation icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Courses</span>
                                         </a>
                                     </li>
                                     <li class="dt-side-nav__item">
-                                        <a href="/request-course" class="dt-side-nav__link" title="Layouts">
+                                        <a href="/request-course" class="dt-side-nav__link" title="Request New Course">
                                             <i class="icon icon-folder-o icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Request New Course</span>
                                         </a>
@@ -309,7 +363,7 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/workshops" class="dt-side-nav__link" title="Task Manager">
+                                        <a href="/workshops" class="dt-side-nav__link" title="Workshops">
                                             <i class="icon icon-components icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Workshops</span>
                                         </a>
@@ -324,7 +378,7 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/work-station" class="dt-side-nav__link" title="Task Manager">
+                                        <a href="/work-station" class="dt-side-nav__link" title="Work Station">
                                             <i class="icon icon-user icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Work Station</span>
                                         </a>
@@ -332,6 +386,60 @@
                                 </div>
 
                                 <div ng-show="main.isLoggedIn && main.authorized">
+
+                                    <!-- Menu Header -->
+                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                        <span class="dt-side-nav__text">Employee Facilities</span>
+                                    </li>
+                                    <!-- /menu header -->
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/manage-assets" class="dt-side-nav__link" title="Assets & Benefits">
+                                            <i class="icon icon-revenue-new icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Assets & Benefits</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/manage-projects" class="dt-side-nav__link" title="Project Status">
+                                            <i class="icon icon-projects icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Project Status</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/manage-attendance" class="dt-side-nav__link" title="Attendance">
+                                            <i class="icon icon-attendance icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Attendance</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/manage-leaves" class="dt-side-nav__link" title="Leaves Management">
+                                            <i class="icon icon-heart-o icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Leaves Management</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Menu Item -->
+                                    <li class="dt-side-nav__item">
+                                        <a href="/manage-notice-board" class="dt-side-nav__link" title="Notice Board">
+                                            <i class="icon icon-assignment icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Notice Board</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="dt-side-nav__item">
+                                        <a href="/manage-recruitment" class="dt-side-nav__link" title="Recruitment Request">
+                                            <i class="icon icon-user-add icon-fw icon-lg"></i>
+                                            <span class="dt-side-nav__text">Recruitment Request</span>
+                                        </a>
+                                    </li>
+
                                     <!-- Menu Header -->
                                     <li class="dt-side-nav__item dt-side-nav__header">
                                         <span class="dt-side-nav__text">Courses Management</span>
@@ -340,19 +448,19 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/manage-courses" class="dt-side-nav__link" title="Metrics">
+                                        <a href="/manage-courses" class="dt-side-nav__link" title="Manage Courses">
                                             <i class="icon icon-graduation icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Manage Courses</span>
                                         </a>
                                     </li>
                                     <li class="dt-side-nav__item">
-                                        <a href="/add-new-course" class="dt-side-nav__link" title="Layouts">
+                                        <a href="/add-new-course" class="dt-side-nav__link" title="Add New Course">
                                             <i class="icon icon-circle-add-o icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Add New Course</span>
                                         </a>
                                     </li>
                                     <li class="dt-side-nav__item">
-                                        <a href="/new-course-requests" class="dt-side-nav__link" title="Layouts">
+                                        <a href="/new-course-requests" class="dt-side-nav__link" title="New Course Requests">
                                             <i class="icon icon-metrics icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">New Course Requests</span>
                                         </a>
@@ -367,7 +475,7 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/manage-category" class="dt-side-nav__link" title="Metrics">
+                                        <a href="/manage-category" class="dt-side-nav__link" title="Manage Category">
                                             <i class="icon icon-tag icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Manage Category</span>
                                         </a>
@@ -382,13 +490,13 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/manage-workshops" class="dt-side-nav__link" title="Task Manager">
+                                        <a href="/manage-workshops" class="dt-side-nav__link" title="Manage Workshops">
                                             <i class="icon icon-components icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Manage Workshops</span>
                                         </a>
                                     </li>
                                     <li class="dt-side-nav__item">
-                                        <a href="/add-new-workshop" class="dt-side-nav__link" title="Task Manager">
+                                        <a href="/add-new-workshop" class="dt-side-nav__link" title="Add New Workshop">
                                             <i class="icon icon-circle-add-o icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Add New Workshop</span>
                                         </a>
@@ -403,7 +511,7 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/create-new-user" class="dt-side-nav__link" title="Task Manager">
+                                        <a href="/create-new-user" class="dt-side-nav__link" title="Create User">
                                             <i class="icon icon-user-add icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Create User</span>
                                         </a>
@@ -412,7 +520,7 @@
 
                                     <!-- Menu Item -->
                                     <li class="dt-side-nav__item">
-                                        <a href="/manage-users" class="dt-side-nav__link" title="Task Manager">
+                                        <a href="/manage-users" class="dt-side-nav__link" title="Users">
                                             <i class="icon icon-users icon-fw icon-lg"></i>
                                             <span class="dt-side-nav__text">Users</span>
                                         </a>

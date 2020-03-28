@@ -1,0 +1,82 @@
+<h1> Assets & Benefits</h1>
+
+<div class="row">
+
+    <!-- Filter Card -->
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+                <div class="form-row">
+                    <div class="col-sm-9 mb-3">
+                        <input class="form-control" type="text" ng-model="FilterText" placeholder="Filter by search">
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <a class="btn btn-primary mr-2 mb-2" href="/add-asset" role="button"><i class="icon icon-circle-add-o"></i>&nbsp; Add New Asset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Item -->
+    <div class="col-xl-12">
+
+        <!-- Card -->
+        <div class="dt-card overflow-hidden">
+
+            <!-- Card Body -->
+            <div class="dt-card__body p-0">
+
+                <!-- Tables -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th class="text-uppercase" scope="col">Item</th>
+                            <th class="text-uppercase" scope="col">Employee Name</th>
+                            <th class="text-uppercase" scope="col">Issue Date</th>
+                            <th class="text-uppercase" scope="col">Return Date</th>
+                            <th class="text-uppercase" scope="col">Status</th>
+                            <th class="text-uppercase" scope="col">ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asset in assetsManagement.assets | filter : FilterText | orderBy : '-return_date'">
+                            <th scope="row">{{ $index + 1}}</th>
+                            <td>{{ asset.item }}</td>
+                            <td>{{ asset.user[0].name }}</td>
+                            <td>{{ asset.issue_date | date : 'MMM d, y h:mm a' }}</td>
+                            <td>{{ asset.return_date | date : 'MMM d, y h:mm a' }}</td>
+                            <td>
+                                <span ng-if="asset.status=='pending'" class="badge badge-pill badge-danger mb-1 mr-1">Pending</span>
+                                <span ng-if="asset.status=='received'" class="badge badge-pill badge-success mb-1 mr-1">Received</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-success" ng-click="assetsManagement.receivedItem(asset._id);" ng-disabled="asset.status=='received'"><i class="icon icon-revenue-new"></i> </button>
+                                <button class="btn btn-primary"><i class="icon icon-editors"></i> </button>
+                                <button class="btn btn-danger"><i class="icon icon-trash"></i> </button>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /tables -->
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+    </div>
+    <!-- /grid item -->
+
+
+</div>

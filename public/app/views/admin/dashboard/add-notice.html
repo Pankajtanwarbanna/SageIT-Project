@@ -1,0 +1,66 @@
+<!-- Page Header -->
+<div class="dt-page__header">
+    <h1 class="dt-page__title">Add New Notice</h1>
+</div>
+
+<div class="row">
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+
+                <!-- Form -->
+                <form ng-submit="noticeManagement.addNotice(noticeData);" class="mb-6" ng-show="!noticeManagement.addNoticeSuccessMsg">
+                    <div class="form-row">
+                        <div class="col-sm-6 mb-3">
+                            <label>Title :  </label>
+                            <input class="form-control" type="text" name="name" placeholder="Enter Notice Title" ng-model="noticeManagement.noticeData.title" required>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label>Department : </label>
+                            <select class="form-control" ng-model="noticeManagement.noticeData.department_id" required>
+                                <option value="">-- Select Department --</option>
+                                <option ng-repeat="department in noticeManagement.departments" value="{{ department._id }}">{{ department.department }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 mb-3">
+                            <label>Notice Info :</label>
+                            <textarea class="form-control" rows="5" type="text" name="notice" ng-model="noticeManagement.noticeData.notice_info" required></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add Notice Now</button>
+
+                </form>
+                <!-- /form -->
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-success" ng-show="noticeManagement.addNoticeSuccessMsg">
+                        <strong> Success! </strong> {{ noticeManagement.addNoticeSuccessMsg }}
+                    </div>
+                </div>
+
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-danger" ng-show="noticeManagement.addNoticeErrorMsg">
+                        <strong> Oops! </strong>{{ noticeManagement.addNoticeErrorMsg }}
+                    </div>
+                </div>
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+        <!-- /card -->
+    </div>
+    <!-- /grid item -->
+</div>
+<!-- /grid -->
+

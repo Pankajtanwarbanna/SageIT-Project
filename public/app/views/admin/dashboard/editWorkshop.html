@@ -18,10 +18,10 @@
                             <input class="form-control" type="text" name="name" placeholder="Enter Course Name" ng-model="workshopManagement.workshopData.title" required>
                         </div>
                         <div class="col-sm-6 mb-3">
-                            <label>Workshop Category</label>
-                            <select class="form-control" id="simple-select" ng-model="workshopManagement.workshopData.category" required>
-                                <option value="">-- Select Category --</option>
-                                <option ng-repeat="category in main.categories" value="{{ category.category }}">{{ category.category }}</option>
+                            <label>Workshop Department</label>
+                            <select class="form-control" id="simple-select" ng-model="workshopManagement.workshopData.department" required>
+                                <option value="">-- Select Department --</option>
+                                <option ng-repeat="department in workshopManagement.departments" value="{{ department.department }}">{{ department.department }}</option>
                             </select>
                         </div>
                     </div>

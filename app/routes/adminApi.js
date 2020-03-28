@@ -5,6 +5,8 @@ let User = require('../models/user');
 let Course = require('../models/course');
 let Workshop = require('../models/workshop');
 let CourseRequest = require('../models/courseRequest');
+let Asset = require('../models/asset');
+let Notice = require('../models/notice');
 var jwt = require('jsonwebtoken');
 var secret = 'pankaj';
 var nodemailer = require('nodemailer');
@@ -281,7 +283,7 @@ module.exports = function (router){
             let course = new Course();
 
             course.course_name = req.body.course_name;
-            course.category = req.body.category;
+            course.department = req.body.department;
             course.description = req.body.description;
             course.course_url = req.body.course_url;
 
@@ -312,7 +314,7 @@ module.exports = function (router){
 
     // get all courses
     router.get('/getAllCourses', auth.ensureAdmin, function (req, res) {
-        Course.find({ }).select('course_name category description poster timestamp').lean().exec(function (err, courses) {
+        Course.find({ }).select('course_name department description poster timestamp').lean().exec(function (err, courses) {
             if(err) {
                 res.json({
                     success : false,
@@ -381,7 +383,7 @@ module.exports = function (router){
 
         workshop.title = req.body.title;
         workshop.presenter = req.body.presenter;
-        workshop.category = req.body.category;
+        workshop.department = req.body.department;
         workshop.venue = req.body.venue;
         workshop.description = req.body.description;
         workshop.time_date = req.body.time_date;
@@ -405,22 +407,22 @@ module.exports = function (router){
         })
     });
 
-        // get all workshops
-        router.get('/getWorkshops',auth.ensureAdmin, function (req, res) {
-            Workshop.find({ }, function (err, workshops) {
-                if(err) {
-                    res.json({
-                        success: false,
-                        message: 'Something went wrong!'
-                    })
-                } else {
-                    res.json({
-                        success : true,
-                        workshops : workshops
-                    })
-                }
-            })
-        });
+    // get all workshops
+    router.get('/getWorkshops',auth.ensureAdmin, function (req, res) {
+        Workshop.find({ }, function (err, workshops) {
+            if(err) {
+                res.json({
+                    success: false,
+                    message: 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    workshops : workshops
+                })
+            }
+        })
+    });
 
     // get workshop details
     router.get('/getWorkshopDetails/:workshopID', auth.ensureAdmin, function (req, res) {
@@ -439,7 +441,7 @@ module.exports = function (router){
         })
     });
 
-    // edit workshop
+    // update workshop
     router.post('/updateWorkshop', auth.ensureAdmin, function (req, res) {
         Workshop.findByIdAndUpdate({ _id : req.body._id }, req.body, function (err) {
             if(err) {
@@ -518,6 +520,189 @@ module.exports = function (router){
                 res.json({
                     success : true,
                     message : 'Course successfully deleted.'
+                })
+            }
+        })
+    });
+
+    // add new asset
+    router.post('/addAsset', auth.ensureAdmin, function (req, res) {
+        let asset = new Asset();
+
+        asset.item = req.body.item;
+        asset.employee_email = req.body.employee_email;
+        asset.issue_date = req.body.issue_date;
+        asset.return_date = req.body.return_date;
+        asset.created_by = req.decoded.email;
+        asset.timestamp = new Date();
+
+        asset.save(function (err) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    message : 'Asset successfully added.'
+                })
+            }
+        })
+    });
+    
+    // get all assets
+    router.get('/getAllAssets', auth.ensureAdmin, function (req, res) {
+        Asset.aggregate([
+            { $lookup : {
+                    from : "users",
+                    localField : "employee_email",
+                    foreignField : "email",
+                    as : "user"
+                }
+            }
+        ]).exec(function (err, assets) {
+            if(err) {
+                console.log(err);
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                console.log(assets)
+                res.json({
+                    success : true,
+                    assets : assets
+                })
+            }
+        })
+    });
+
+    // received item
+    router.post('/receivedItem/:assetID', auth.ensureAdmin, function (req, res) {
+        Asset.findOne({ _id : req.params.assetID }).select('status received_on').exec(function (err, asset) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(asset.status !== 'pending') {
+                    res.json({
+                        success : false,
+                        message : 'Asset already recieved.'
+                    })
+                } else {
+                    asset.status = 'received';
+                    asset.received_on = new Date();
+
+                    asset.save(function (err) {
+                        if(err) {
+                            res.json({
+                                success : false,
+                                message : 'Something went wrong!'
+                            })
+                        } else {
+                            res.json({
+                                success : true,
+                                message : 'Asset received successfully. '
+                            })
+                        }
+                    })
+                }
+            }
+        })
+    });
+
+    // add new asset
+    router.post('/addNotice', auth.ensureAdmin, function (req, res) {
+        let notice = new Notice();
+
+        notice.title = req.body.title[0].toUpperCase() + req.body.title.slice(1);
+        notice.department_id = req.body.department_id;
+        notice.notice_info = req.body.notice_info;
+        notice.created_by = req.decoded.email;
+        notice.timestamp = new Date();
+
+        notice.save(function (err) {
+            if(err) {
+                console.log(err);
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                console.log('success')
+                res.json({
+                    success : true,
+                    message : 'Notice successfully added.'
+                })
+            }
+        })
+    });
+
+    // get all assets
+    router.get('/getAllNotices', auth.ensureAdmin, function (req, res) {
+        Notice.aggregate([
+            { $lookup : {
+                    from : "departments",
+                    localField : "department_id",
+                    foreignField : "_id",
+                    as : "department_info"
+                }
+            }
+        ]).exec(function (err, notices) {
+            if(err) {
+                console.log(err);
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    notices : notices
+                })
+            }
+        })
+    });
+
+    // get notice by id
+    router.get('/getNotice/:noticeID', auth.ensureAdmin, function (req, res) {
+        Notice.findOne({ _id : req.params.noticeID }).select('title department_id notice_info').lean().exec(function (err, notice) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(!notice) {
+                    res.json({
+                        success : false,
+                        message : 'Notice not found.'
+                    })
+                } else {
+                    res.json({
+                        success : true,
+                        notice : notice
+                    })
+                }
+            }
+        })
+    });
+
+    // update notice
+    router.post('/updateNotice', auth.ensureAdmin, function (req, res) {
+        Notice.findByIdAndUpdate({ _id : req.body._id }, req.body, function (err) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    message : 'Notice successfully updated.'
                 })
             }
         })

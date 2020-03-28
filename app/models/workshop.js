@@ -23,7 +23,7 @@ var workshopSchema = new mongoose.Schema({
         type : Date,
         required : true
     },
-    category : {
+    department : {
         type : String,
         required : true
     },

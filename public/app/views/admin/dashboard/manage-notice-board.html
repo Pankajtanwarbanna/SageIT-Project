@@ -1,0 +1,79 @@
+<h1> Notices </h1>
+
+<div class="row">
+
+    <!-- Filter Card -->
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+                <div class="form-row">
+                    <div class="col-sm-9 mb-3">
+                        <input class="form-control" type="text" ng-model="FilterText" placeholder="Filter by search">
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <a class="btn btn-primary mr-2 mb-2" href="/add-notice" role="button"><i class="icon icon-circle-add-o"></i>&nbsp; Add New Notice</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 order-xl-3" ng-repeat="notice in noticeManagement.notices">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body p-6">
+                <!-- Media -->
+                <div class="media mb-3">
+
+                    <!-- Avatar -->
+                    <img class="img-fluid mr-6" src="/assets/images/notice.png" style="width: 50px;height: 50px;" alt="project">
+                    <!-- /avatar -->
+
+                    <!-- Media Body -->
+                    <div class="media-body align-self-center">
+                        <div class="h2 mb-1">{{ notice.title }}
+                            <a ng-show="main.authorized" class="mr-lg-10 mb-2" href="/editNotice/{{ notice._id }}" role="button"><i class="icon icon-editors text-success"></i></a>
+                        </div>
+                        <span class="d-block text-light-gray">{{ notice.timestamp | date : 'MMM d, yyyy'}}</span>
+                    </div>
+                    <!-- /media body -->
+
+                </div>
+                <!-- /media -->
+
+                <!-- Card text -->
+                <p>{{ notice.notice_info }}</p>
+                <!-- /card text -->
+
+                <span class="min-w-150 d-inline-block border-top mb-2"></span>
+
+                <div class="d-flex flex-wrap mb-4">
+                    <div class="pr-3">Department : <span class="text-dark">{{ notice.department_info[0].department }}</span></div>
+                </div>
+                <!-- /content area -->
+
+                <div>
+                    <span class="d-inline-block mr-3"><i class="icon icon-user icon-fw"></i> Posted by Admin</span>
+                    <span class="d-inline-block"><i class="icon icon-calendar icon-fw"></i> Just Now</span>
+                </div>
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+    </div>
+    <!-- /grid item -->
+
+
+
+</div>

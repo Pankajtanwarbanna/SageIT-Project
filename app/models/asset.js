@@ -2,30 +2,34 @@ var mongoose = require('mongoose');
 var titlize = require('mongoose-title-case');
 mongoose.set('useCreateIndex', true);
 
-var courseSchema = new mongoose.Schema({
-    course_name : {
+var assetSchema = new mongoose.Schema({
+    item : {
         type : String,
         required : true
     },
-    department : {
+    employee_email : {
         type : String,
         required : true
     },
-    description : {
-        type : String,
+    issue_date : {
+        type : Date,
         required : true
     },
-    course_url : {
-        type : String,
+    return_date : {
+        type : Date,
         required : true
     },
-    poster : {
+    status : {
         type : String,
         required : true,
-        default : 'course.jpeg'
+        default : 'pending'
     },
-    course_file_url : {
-        type : String
+    received_on : {
+        type : Date
+    },
+    created_by : {
+        type : String,
+        required : true
     },
     timestamp : {
         type : Date,
@@ -34,8 +38,8 @@ var courseSchema = new mongoose.Schema({
 });
 
 // Mongoose title case plugin
-courseSchema.plugin(titlize, {
-    paths: [ 'course_name'], // Array of paths
+assetSchema.plugin(titlize, {
+    paths: [ 'item'], // Array of paths
 });
 
-module.exports = mongoose.model('Course',courseSchema);
+module.exports = mongoose.model('Asset',assetSchema);

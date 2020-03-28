@@ -96,5 +96,40 @@ angular.module('adminServices',[])
         return $http.delete('/api/removeCourse/' + courseID);
     };
 
+    // add new asset
+    adminFactory.addAsset = function (assetData) {
+        return $http.post('/api/addAsset', assetData);
+    };
+
+    // get all assets
+    adminFactory.getAllAssets = function () {
+        return $http.get('/api/getAllAssets');
+    };
+
+    // received item
+    adminFactory.receivedItem = function (assetID) {
+        return $http.post('/api/receivedItem/' + assetID);
+    };
+
+    // add new asset
+    adminFactory.addNotice = function (noticeData) {
+        return $http.post('/api/addNotice', noticeData);
+    };
+
+    // get all assets
+    adminFactory.getAllNotices = function () {
+        return $http.get('/api/getAllNotices');
+    };
+
+    // get notice
+    adminFactory.getNotice = function (noticeID) {
+        return $http.get('/api/getNotice/' + noticeID);
+    };
+
+    // update notice details
+    adminFactory.updateNotice = function (noticeData) {
+        return $http.post('/api/updateNotice' , noticeData);
+    };
+
     return adminFactory;
 });

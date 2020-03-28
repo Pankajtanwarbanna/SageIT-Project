@@ -1,0 +1,70 @@
+<!-- Page Header -->
+<div class="dt-page__header">
+    <h1 class="dt-page__title">Add New Asset</h1>
+</div>
+
+<div class="row">
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+
+                <!-- Form -->
+                <form ng-submit="assetsManagement.addAsset(assetData);" class="mb-6" ng-show="!assetsManagement.addAssetSuccessMsg">
+                    <div class="form-row">
+                        <div class="col-sm-6 mb-3">
+                            <label>Item Name  </label>
+                            <input class="form-control" type="text" name="name" placeholder="Enter name" ng-model="assetsManagement.assetData.item" required>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label>Given To : </label>
+                            <select class="form-control" ng-model="assetsManagement.assetData.employee_email" required>
+                                <option value="">-- Select Employee --</option>
+                                <option ng-repeat="employee in assetsManagement.employees" value="{{ employee.email }}">{{ employee.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-6 mb-3">
+                            <label>Issue Date :</label>
+                            <input class="form-control" type="datetime-local" name="issue" ng-model="assetsManagement.assetData.issue_date" required>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label>Return Date :</label>
+                            <input class="form-control" type="datetime-local" name="return" ng-model="assetsManagement.assetData.return_date" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add Asset Now</button>
+
+                </form>
+                <!-- /form -->
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-success" ng-show="assetsManagement.addAssetSuccessMsg">
+                        <strong> Success! </strong> {{ assetsManagement.addAssetSuccessMsg }}
+                    </div>
+                </div>
+
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-danger" ng-show="assetsManagement.addAssetErrorMsg">
+                        <strong> Oops! </strong>{{ assetsManagement.addAssetErrorMsg }}
+                    </div>
+                </div>
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+        <!-- /card -->
+    </div>
+    <!-- /grid item -->
+</div>
+<!-- /grid -->
+

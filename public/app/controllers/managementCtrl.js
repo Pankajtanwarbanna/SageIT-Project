@@ -103,6 +103,13 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
 
     getAllCourses();
 
+    //get all departments
+    admin.getAllDepartments().then(function (data) {
+        if(data.data.success) {
+            app.departments = data.data.departments;
+        }
+    });
+
     // Add New Course
     app.addNewCourseLoading = false;
 
@@ -214,6 +221,7 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
 .controller('workshopManagementCtrl', function (admin, $routeParams, uploadFile,$scope) {
     var app = this;
 
+    // get all workshops
     function getWorkshops() {
         admin.getWorkshops().then(function (data) {
             if(data.data.success) {
@@ -221,6 +229,13 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
             }
         })
     }
+
+    //get all departments
+    admin.getAllDepartments().then(function (data) {
+        if(data.data.success) {
+            app.departments = data.data.departments;
+        }
+    });
 
     getWorkshops();
 
@@ -336,4 +351,106 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
             app.users = data.data.users;
         }
     })
+})
+
+// asset management ctrl
+.controller('assetsManagementCtrl', function (admin) {
+
+    var app = this;
+
+    // get all usres
+    admin.getUsers().then(function (data) {
+        if(data.data.success) {
+            app.employees = data.data.users;
+        }
+    });
+    
+    // add new asset
+    app.addAsset = function (assetData) {
+        admin.addAsset(app.assetData).then(function (data) {
+            if(data.data.success) {
+                app.addAssetSuccessMsg = data.data.message;
+            } else {
+                app.addAssetErrorMsg = data.data.message;
+            }
+        })
+    };
+
+    function getAllAssets() {
+        // get all assets
+        admin.getAllAssets().then(function (data) {
+            console.log(data);
+            if(data.data.success) {
+                app.assets = data.data.assets;
+            }
+        });
+    }
+
+    getAllAssets();
+    
+    // received item
+    app.receivedItem = function (assetID) {
+        admin.receivedItem(assetID).then(function (data) {
+            console.log(data);
+            if(data.data.success) {
+                getAllAssets();
+            }
+        })
+    }
+})
+
+// notice management controller
+.controller('noticeManagementCtrl', function(admin, $routeParams){
+
+    let app = this;
+
+    //get all departments
+    admin.getAllDepartments().then(function (data) {
+        if(data.data.success) {
+            app.departments = data.data.departments;
+        }
+    });
+
+    // get all notices
+    admin.getAllNotices().then(function (data) {
+        console.log(data.data.notices);
+        if(data.data.success) {
+            app.notices = data.data.notices;
+        }
+    });
+
+    // add notice function
+    app.addNotice = function (noticeData) {
+        admin.addNotice(app.noticeData).then(function (data) {
+            if(data.data.success) {
+                app.addNoticeSuccessMsg = data.data.message;
+            } else {
+                app.addNoticeErrorMsg = data.data.message;
+            }
+        })
+    };
+
+    // get notice
+    if($routeParams.noticeID) {
+        admin.getNotice($routeParams.noticeID).then(function (data) {
+            console.log(data);
+            if(data.data.success) {
+                app.noticeData = data.data.notice;
+            } else {
+                app.editNoticeErrorMsg = data.data.message;
+            }
+        });
+    }
+
+    // update notice
+    app.updateNotice = function (noticeData) {
+        admin.updateNotice(app.noticeData).then(function (data) {
+            if(data.data.success) {
+                app.editNoticeSuccessMsg = data.data.message;
+            } else {
+                app.editNoticeErrorMsg = data.data.message;
+            }
+        })
+    }
+
 });
