@@ -1,0 +1,88 @@
+<!-- Page Header -->
+<div class="dt-page__header">
+    <h1 class="dt-page__title">Edit Project</h1>
+</div>
+
+<div class="row">
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+
+                <!-- Form -->
+                <form ng-submit="projectManagement.editProject(projectData);" class="mb-6" ng-show="!projectManagement.editProjectSuccessMsg">
+                    <div class="form-row">
+                        <div class="col-sm-6 mb-3">
+                            <label>Title :  </label>
+                            <input class="form-control" type="text" name="name" placeholder="Enter Project Title" ng-model="projectManagement.projectData.title" required>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label>Department : </label>
+                            <select class="form-control" ng-model="projectManagement.projectData.department_id" required>
+                                <option value="">-- Select Department --</option>
+                                <option ng-repeat="department in projectManagement.departments" value="{{ department._id }}">{{ department.department }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 mb-3">
+                            <label>Project Description :</label>
+                            <textarea class="form-control" rows="5" type="text" name="project" ng-model="projectManagement.projectData.description" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-4 mb-3">
+                            <label>Start Date :  </label>
+                            <input class="form-control" type="datetime-local" name="name" ng-model="projectManagement.projectData.start_date" required>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <label>Deadline :  </label>
+                            <input class="form-control" type="datetime-local" name="name" ng-model="projectManagement.projectData.deadline" required>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <label>Project Progress :  </label>
+                            <input class="form-control" type="number" min="0" max="100" name="progress" ng-model="projectManagement.projectData.progress" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 mb-3">
+                            <label>Select Team Members : </label>
+                            <select multiple class="form-control" ng-model="projectManagement.projectData.members" required>
+                                <option ng-repeat="member in projectManagement.members" value="{{ member.email }}">{{ member.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Update Project Now</button>
+
+                </form>
+                <!-- /form -->
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-success" ng-show="projectManagement.editProjectSuccessMsg">
+                        <strong> Success! </strong> {{ projectManagement.editProjectSuccessMsg }}
+                    </div>
+                </div>
+
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-danger" ng-show="projectManagement.editProjectErrorMsg">
+                        <strong> Oops! </strong>{{ projectManagement.editProjectErrorMsg }}
+                    </div>
+                </div>
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+        <!-- /card -->
+    </div>
+    <!-- /grid item -->
+</div>
+<!-- /grid -->
+

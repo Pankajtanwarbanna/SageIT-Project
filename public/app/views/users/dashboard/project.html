@@ -1,0 +1,330 @@
+<div class="col-xl-12">
+
+    <!-- Card -->
+    <div class="dt-card dt-card__full-height">
+
+        <!-- Card Header -->
+        <div class="dt-card__header mb-4">
+
+            <!-- Card Heading -->
+            <div class="dt-card__heading">
+                <h3 class="dt-card__title">
+                    <i class="icon icon-revenue mr-3 icon-xl"></i><span
+                        class="align-bottom">{{ project.projectData.department_info[0].department }}</span>
+                </h3>
+            </div>
+            <!-- /card heading -->
+
+            <!-- Card Tools -->
+            <div class="dt-card__tools">
+                <a href="javascript:void(0)" class="dt-card__more">
+                    <i class="icon icon-calendar mr-2"></i>{{ project.currentDate | date : 'dd MMMM yyyy' }}
+                </a>
+                <a ng-show="main.authorized" href="/editProject/{{ project.projectData._id }}" class="dt-card__more">
+                    <i class="btn btn-outline-success icon icon-editors mr-2"></i>
+                </a>
+            </div>
+            <!-- /card tools -->
+
+        </div>
+        <!-- /card header -->
+
+        <!-- Card Body -->
+        <div class="dt-card__body pb-4">
+            <!-- Grid -->
+            <div class="row no-gutters">
+                <!-- Grid Item -->
+                <div class="col-sm-12 mb-8 mb-sm-0">
+                    <div class="d-flex align-items-baseline mb-1">
+                        <span class="display-2 font-weight-500 text-dark mr-2">{{ project.projectData.title }}</span>
+                    </div>
+                    <p class="mb-0">{{ project.projectData.description }}</p>
+                </div>
+                <!-- /grid item -->
+            </div>
+            <!-- /grid -->
+
+            <!-- Separator -->
+            <hr class="my-5">
+            <!-- /separator -->
+
+            <div class="position-relative">
+                <h5>Project Schedule</h5>
+                <!-- Grid -->
+                <div class="row no-gutters">
+                    <!-- Grid Item -->
+                    <div class="col-sm-4 col-12 mb-2 mb-sm-0">
+                        <!-- Media -->
+                        <div class="media">
+                            <!-- Circle Progress bar -->
+                            <div id="circle-progressbar-1" class="mr-3"></div>
+                            <!-- /circle progress bar -->
+
+                            <!-- Media Body -->
+                            <div class="media-body">
+                                <h5 class="mb-0">Start Date</h5>
+                                <div class="d-flex align-items-baseline">
+                                    <span class="display-5 font-weight-500 text-primary mr-2">{{ project.projectData.start_date | date : 'MMM d, yyyy'}}</span>
+                                </div>
+                            </div>
+                            <!-- /media body -->
+                        </div>
+                        <!-- /media -->
+                    </div>
+                    <!-- /grid item -->
+                    <!-- Grid Item -->
+                    <div class="col-sm-4 col-12 mb-2 mb-sm-0">
+                        <!-- Media -->
+                        <div class="media">
+                            <!-- Circle Progress bar -->
+                            <div id="circle-progressbar-2" class="mr-3"></div>
+                            <!-- /circle progress bar -->
+
+                            <!-- Media Body -->
+                            <div class="media-body">
+                                <h5 class="mb-0">Deadline</h5>
+                                <div class="d-flex align-items-baseline">
+                                    <span class="display-5 font-weight-500 text-danger mr-2">{{ project.projectData.deadline | date : 'MMM d, yyyy'}}</span>
+                                    <!--<div class="trending-section">
+                                        <span class="value f-12">38%</span>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <!-- /media body -->
+                        </div>
+                        <!-- /media -->
+                    </div>
+                    <!-- /grid item -->
+                    <!-- Grid Item -->
+                    <div class="col-sm-4 col-12">
+                        <!-- Media -->
+                        <div class="media">
+                            <!-- Circle Progress bar -->
+                            <div id="circle-progressbar-3" class="mr-3"></div>
+                            <!-- /circle progress bar -->
+
+                            <!-- Media Body -->
+                            <div class="media-body">
+                                <h5 class="mb-0">Progress</h5>
+                                <div class="d-flex align-items-baseline">
+                                    <span class="display-5 font-weight-500 text-success mr-2">{{ project.projectData.progress }}% Complete</span>
+                                </div>
+                            </div>
+                            <!-- /media body -->
+                        </div>
+                        <!-- /media -->
+                    </div>
+                    <!-- /grid item -->
+                </div>
+                <!-- /grid -->
+            </div>
+        </div>
+        <!-- /card body -->
+
+    </div>
+    <!-- /card -->
+
+</div>
+<!-- /grid item -->
+
+<div class="col-xl-12 order-xl-2">
+
+    <!-- Card -->
+    <div class="dt-card dt-contact-card">
+
+        <!-- Card Header -->
+        <div class="dt-card__header mb-3 header-sm-inline">
+
+            <!-- Card Heading -->
+            <div class="dt-card__heading">
+                <h3 class="dt-card__title">Team Members</h3>
+            </div>
+            <!-- /card heading -->
+
+        </div>
+        <!-- /card header -->
+
+        <!-- Card Body -->
+        <div class="dt-card__body pb-4">
+
+            <!-- Tab Content-->
+            <div class="tab-content">
+
+                <!-- Tab panel -->
+                <div id="marketing" class="tab-pane active">
+                    <!-- Grid -->
+                    <div class="row no-gutters">
+
+                        <!-- Grid Item -->
+                        <div class="col-md-4 col-sm-6 col-12" ng-repeat="user in project.projectData.users_info">
+
+                            <!-- Contact Short Info -->
+                            <div class="dt-contact-info-short">
+
+                                <!-- Avatar Wrapper -->
+                                <div class="dt-avatar-wrapper">
+                                    <!-- Avatar -->
+                                    <img class="dt-avatar"
+                                         src="/assets/uploads/{{ user.profile_url }}"
+                                         alt="{{ user.name }}">
+                                    <!-- /avatar -->
+
+                                    <!-- Info -->
+                                    <div class="dt-avatar-info">
+                                        <a href="#"
+                                           class="dt-avatar-name text-dark">{{ user.name }}</a>
+                                        <span class="f-12 text-light-gray">{{ user.email }}</span>
+                                    </div>
+                                    <!-- /info -->
+                                </div>
+                                <!-- /avatar wrapper -->
+
+                            </div>
+                            <!-- /contact short info -->
+
+                        </div>
+                        <!-- /grid item -->
+
+                        <!-- Grid Item -->
+                        <div class="col-md-4 col-12" ng-show="main.authorized">
+                            <a class="border border-dashed py-3 px-4 rounded h-100 text-light-gray d-flex align-items-center justify-content-center"
+                               href="/editProject/{{ project.projectData._id }}">Add New</a>
+                        </div>
+                        <!-- /grid item -->
+
+                    </div>
+                    <!-- /grid -->
+                </div>
+                <!-- /tab panel -->
+
+            </div>
+            <!-- /tab content-->
+
+        </div>
+        <!-- /card body -->
+
+    </div>
+    <!-- /card -->
+
+</div>
+<!-- /grid item -->
+
+
+<div class="row">
+
+    <!-- Grid Item -->
+    <div class="col-xl-12">
+
+        <!-- Module -->
+        <div class="dt-module dt-module--chat">
+
+            <!-- Module Container -->
+            <div class="dt-module__container" style="max-width: 100%">
+
+                <!-- Module Header -->
+                <div class="dt-module__header">
+                    <!-- User Detail  -->
+                    <div class="dt-avatar-wrapper">
+                        <div class="dt-avatar-status mr-2">
+                            <img class="dt-avatar size-45" src="/assets/images/project.png" alt="Project">
+                            <div class="dot-shape bg-success dot-shape-lg"></div>
+                        </div>
+                        <span class="dt-avatar-info">
+                            <a href="javascript:void(0)" class="dt-avatar-name">{{ project.projectData.department_info[0].department }}</a>
+                            <span class="d-inline-block">{{ project.projectData.title }}</span>
+                        </span>
+                    </div>
+                    <!-- User Detail  -->
+                </div>
+                <!-- /module header -->
+
+                <!-- Module Content -->
+                <div class="dt-module__content ps-custom-scrollbar">
+
+                    <!-- Module Content Inner -->
+                    <div class="dt-module__content-inner">
+
+                        <!-- Chat Conversation -->
+                        <div class="dt-chat__conversation">
+
+                            <!-- Chat Item -->
+                            <div class="dt-chat__item" ng-repeat="chat in project.projectData.chat">
+
+                                <!-- Avatar -->
+                                <img class="dt-avatar size-30" src="../assets/uploads/{{ chat.profile_url }}">
+                                <!-- /avatar -->
+
+                                <!-- Messages -->
+                                <div class="dt-chat__message-wrapper">
+
+                                    <!-- Message -->
+                                    <div class="dt-chat__message">
+                                        {{ chat.message }}
+                                        <br>
+                                        <br>
+                                        <span style="font-size: 12px;" class="text-success">{{ chat.name }} at {{ chat.timestamp | date : 'medium'}}</span>
+                                    </div>
+                                    <!-- /message -->
+
+                                </div>
+                                <!-- /messages -->
+
+                            </div>
+                            <!-- /chat item -->
+                        </div>
+                        <!-- /chat conversation -->
+
+                    </div>
+                    <!-- /module content inner -->
+
+                </div>
+                <!-- /module content -->
+
+                <!-- Comment Box -->
+                <div class="add-comment-box">
+
+                    <form ng-submit="project.addComment(commentData);">
+                        <!-- Action Tools -->
+                        <div class="action-tools">
+                            <button class="btn btn-primary dt-fab-btn" type="submit">
+                                <i class="icon icon-send-new icon-xl"></i>
+                            </button>
+
+                            <!--<div class="dt-fab-btn dt-attachment-btn size-30">
+                                <input type="file"> <i class="icon icon-attach-v"></i>
+                            </div>-->
+                        </div>
+                        <!-- /action tools -->
+
+                        <!-- Media -->
+                        <div class="media">
+                            <!-- Avatar -->
+                            <img class="dt-avatar" src="/assets/uploads/{{ main.profile_url }}">
+                            <!-- /avatar -->
+
+                            <!-- Media Body -->
+                            <div class="media-body">
+
+                                <!-- Text Area -->
+                                <textarea class="form-control border-0 shadow-none bg-focus" rows="1" placeholder="Write your comment..." ng-model="project.commentData.message"></textarea>
+                                <!-- /text area -->
+
+                            </div>
+                            <!-- /media body -->
+                        </div>
+                        <!-- /media -->
+
+                </div>
+                <!-- /comment box -->
+                    </form>
+
+            </div>
+            <!-- /module container -->
+
+        </div>
+        <!-- /module -->
+
+    </div>
+    <!-- /grid item -->
+
+</div>

@@ -3,15 +3,17 @@
 */
 let auth = require('../auth/authPermission');
 var User = require('../models/user');
-var Position = require('../models/position');
 var Course = require('../models/course');
 var Workshop = require('../models/workshop');
 var Workstation = require('../models/workstation');
 var CourseRequest = require('../models/courseRequest');
+var Project = require('../models/project');
+var Asset = require('../models/asset');
 var jwt = require('jsonwebtoken');
 var secret = 'pankaj';
 var nodemailer = require('nodemailer');
 let multer = require('multer');
+var mongoose = require('mongoose');
 
 var imageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -848,6 +850,173 @@ module.exports = function (router){
                 }
             })
         }
+    });
+
+    // get all assets
+    router.get('/getProject/:projectID', function (req, res) {
+        console.log(req.params.projectID);
+        Project.aggregate([
+            {   $match : {
+                    _id : mongoose.Types.ObjectId(req.params.projectID)
+                }
+            },
+            { $lookup : {
+                    from : "departments",
+                    localField : "department_id",
+                    foreignField : "_id",
+                    as : "department_info"
+                }
+            },
+            { $lookup : {
+                    from : "users",
+                    localField : "members",
+                    foreignField : "email",
+                    as : "users_info"
+                }
+            },
+            { $lookup : {
+                    from : "users",
+                    localField : "created_by",
+                    foreignField : "email",
+                    as : "author"
+                }
+            },
+            { $lookup : {
+                    from : "users",
+                    localField : "chat.user_email",
+                    foreignField : "email",
+                    as : "chat_info"
+                }
+            }
+        ]).exec(function (err, project) {
+            if(err) {
+                console.log(err);
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+
+                res.json({
+                    success : true,
+                    project : project
+                })
+            }
+        })
+    });
+
+    // add comment
+    router.post('/addComment', function (req, res) {
+        Project.findOne({ _id : req.body.projectID }).select('chat').exec(function (err, project) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(!project) {
+                    res.json({
+                        success : false,
+                        message : 'Project not found.'
+                    })
+                } else {
+                    let chat = {};
+
+                    chat.message = req.body.message;
+                    chat.user_email = req.decoded.email;
+                    chat.timestamp = new Date();
+
+                    project.chat.push(chat);
+
+                    project.save(function (err) {
+                        if(err) {
+                            console.log(err);
+                            res.json({
+                                success : false,
+                                message : 'Something went wrong!'
+                            })
+                        } else {
+                            res.json({
+                                success : true,
+                                message : 'Message post.'
+                            })
+                        }
+                    })
+                }
+            }
+        })
+    });
+
+    // get user assets
+    router.get('/getMyAssets', auth.ensureUser, function(req, res) {
+        Asset.find({ employee_email: req.decoded.email }).select('item employee_email issue_date return_date status received_on').lean().exec(function (err, assets) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(!assets) {
+                    res.json({
+                        success : false,
+                        message : 'Assets not found.'
+                    })
+                } else {
+                    res.json({
+                        success : true,
+                        assets : assets
+                    })
+                }
+            }
+        })
+    });
+
+    // get all projects
+    router.get('/getMyProjects', auth.ensureUser, function (req, res) {
+        Project.aggregate([
+            {
+                $match : {
+                    "$expr":
+                        {
+                            "$in": [ req.decoded.email , "$members"]
+                        }
+                }
+            },
+            { $lookup : {
+                    from : "departments",
+                    localField : "department_id",
+                    foreignField : "_id",
+                    as : "department_info"
+                }
+            },
+            { $lookup : {
+                    from : "users",
+                    localField : "members",
+                    foreignField : "email",
+                    as : "users_info"
+                }
+            },
+            { $lookup : {
+                    from : "users",
+                    localField : "created_by",
+                    foreignField : "email",
+                    as : "author"
+                }
+            }
+        ]).exec(function (err, projects) {
+            if(err) {
+                console.log(err);
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    projects : projects
+                })
+            }
+        })
     });
 
     return router;

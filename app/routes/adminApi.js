@@ -7,6 +7,7 @@ let Workshop = require('../models/workshop');
 let CourseRequest = require('../models/courseRequest');
 let Asset = require('../models/asset');
 let Notice = require('../models/notice');
+let Project = require('../models/project');
 var jwt = require('jsonwebtoken');
 var secret = 'pankaj';
 var nodemailer = require('nodemailer');
@@ -614,7 +615,7 @@ module.exports = function (router){
         })
     });
 
-    // add new asset
+    // add new notice
     router.post('/addNotice', auth.ensureAdmin, function (req, res) {
         let notice = new Notice();
 
@@ -703,6 +704,93 @@ module.exports = function (router){
                 res.json({
                     success : true,
                     message : 'Notice successfully updated.'
+                })
+            }
+        })
+    });
+
+    // add new project
+    router.post('/addProject', auth.ensureAdmin, function (req, res) {
+        let project = new Project();
+
+        project.title = req.body.title[0].toUpperCase() + req.body.title.slice(1);
+        project.description = req.body.description;
+        project.members = req.body.members;
+        project.department_id = req.body.department_id;
+        project.start_date = req.body.start_date;
+        project.deadline = req.body.deadline;
+        project.progress = 0;
+        project.created_by = req.decoded.email;
+        project.timestamp = new Date();
+
+        project.save(function (err) {
+            if(err) {
+                console.log(err);
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    message : 'Project successfully added.'
+                })
+            }
+        })
+    });
+
+    // get all projects
+    router.get('/getAllProjects', auth.ensureAdmin, function (req, res) {
+        Project.aggregate([
+            { $lookup : {
+                    from : "departments",
+                    localField : "department_id",
+                    foreignField : "_id",
+                    as : "department_info"
+                }
+            },
+            { $lookup : {
+                    from : "users",
+                    localField : "members",
+                    foreignField : "email",
+                    as : "users_info"
+                }
+            },
+            { $lookup : {
+                    from : "users",
+                    localField : "created_by",
+                    foreignField : "email",
+                    as : "author"
+                }
+            }
+        ]).exec(function (err, projects) {
+            if(err) {
+                console.log(err);
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    projects : projects
+                })
+            }
+        })
+    });
+
+    // update project
+    router.post('/editProject', auth.ensureAdmin, function (req, res) {
+        Project.findByIdAndUpdate({ _id : req.body._id }, req.body, function (err) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                res.json({
+                    success : true,
+                    message : 'Project successfully updated.'
                 })
             }
         })

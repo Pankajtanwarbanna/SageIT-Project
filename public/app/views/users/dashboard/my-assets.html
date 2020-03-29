@@ -1,0 +1,84 @@
+<h1> Assets & Benefits</h1>
+
+<div class="row">
+
+    <!-- Filter Card -->
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+                <div class="form-row">
+                    <div class="col-sm-6 mb-3">
+                        <input class="form-control" type="text" ng-model="FilterText" placeholder="Filter item by search">
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <select class="form-control" ng-model="filterStatus">
+                            <option value="">-- Select Status to filter --</option>
+                            <option value="pending">Pending</option>
+                            <option value="received">Received</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Item -->
+    <div class="col-xl-12">
+
+        <!-- Card -->
+        <div class="dt-card overflow-hidden">
+
+            <!-- Card Body -->
+            <div class="dt-card__body p-0">
+
+                <!-- Tables -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th class="text-uppercase" scope="col">Item</th>
+                            <th class="text-uppercase" scope="col">Employee Name</th>
+                            <th class="text-uppercase" scope="col">Issue Date</th>
+                            <th class="text-uppercase" scope="col">Return Date</th>
+                            <th class="text-uppercase" scope="col">Status</th>
+                            <th class="text-uppercase" scope="col">Submitted On</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asset in assets.assets | filter : { item : FilterText, status : filterStatus } | orderBy : '-return_date'">
+                            <th scope="row">{{ $index + 1}}</th>
+                            <td>{{ asset.item }}</td>
+                            <td>{{ main.name }}</td>
+                            <td>{{ asset.issue_date | date : 'MMM d, y h:mm a' }}</td>
+                            <td>{{ asset.return_date | date : 'MMM d, y h:mm a' }}</td>
+                            <td>
+                                <span ng-if="asset.status=='pending'" class="badge badge-pill badge-danger mb-1 mr-1">Pending</span>
+                                <span ng-if="asset.status=='received'" class="badge badge-pill badge-success mb-1 mr-1">Received</span>
+                            </td>
+                            <td>
+                                <span ng-if="asset.status=='pending'" class="text-danger"> Not Submitted Yet!</span>
+                                <span ng-if="asset.status=='received'">{{ asset.received_on | date : 'MMM d, y h:mm a' }}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /tables -->
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+    </div>
+    <!-- /grid item -->
+
+
+</div>

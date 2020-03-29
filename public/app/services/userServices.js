@@ -117,5 +117,25 @@ angular.module('userServices',[])
         return $http.post('/api/updateProfilePictureURL', profilePictureData);
     };
 
+    // get project
+    userFactory.getProject = function (projectID) {
+        return $http.get('/api/getProject/' + projectID);
+    };
+
+    // add comment
+    userFactory.addComment = function (commentData) {
+        return $http.post('/api/addComment', commentData);
+    };
+
+    //get my assets
+    userFactory.getMyAssets = function () {
+        return $http.get('/api/getMyAssets');
+    };
+
+    //get my projects
+    userFactory.getMyProjects = function () {
+        return $http.get('/api/getMyProjects');
+    };
+
     return userFactory;
 });

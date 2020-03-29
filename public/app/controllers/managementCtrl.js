@@ -453,4 +453,73 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
         })
     }
 
+})
+
+// project management ctrl admin
+.controller('projectManagementCtrl', function (admin,$routeParams, user) {
+
+    let app = this;
+
+    //get all departments
+    admin.getAllDepartments().then(function (data) {
+        if(data.data.success) {
+            app.departments = data.data.departments;
+        }
+    });
+
+    // get all users
+    admin.getUsers().then(function (data) {
+        if(data.data.success) {
+            app.members = data.data.users;
+        }
+    });
+
+    // get all projects
+    if(!$routeParams.projectID) {
+        admin.getAllProjects().then(function (data) {
+            if(data.data.success) {
+                app.projects = data.data.projects;
+            } else {
+                app.errorMsg = data.data.message;
+            }
+        });
+    }
+
+    // add new project
+    app.addProject = function (projectData) {
+        app.addProjectSuccessMsg = '';
+        app.addProjectErrorMsg = '';
+        admin.addProject(app.projectData).then(function (data) {
+            if(data.data.success) {
+                app.addProjectSuccessMsg = data.data.message;
+            } else {
+                app.addProjectErrorMsg = data.data.message;
+            }
+        })
+    };
+
+    // get project to edit
+    if($routeParams.projectID) {
+        user.getProject($routeParams.projectID).then(function (data) {
+            console.log(data);
+            if(data.data.success) {
+                app.projectData = data.data.project[0];
+                app.projectData.start_date = new Date(app.projectData.start_date);
+                app.projectData.deadline = new Date(app.projectData.deadline);
+            }
+        });
+    }
+
+    // admin updating project
+    app.editProject = function (projectData) {
+        admin.editProject(app.projectData).then(function (data) {
+            if(data.data.success) {
+                app.editProjectSuccessMsg = data.data.message;
+            } else {
+                app.editProjectErrorMsg = data.data.message;
+            }
+        })
+    }
+
+
 });

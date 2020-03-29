@@ -131,5 +131,20 @@ angular.module('adminServices',[])
         return $http.post('/api/updateNotice' , noticeData);
     };
 
+    // add new project
+    adminFactory.addProject = function (projectData) {
+        return $http.post('/api/addProject' , projectData);
+    };
+
+    // get all projects
+    adminFactory.getAllProjects = function () {
+        return $http.get('/api/getAllProjects');
+    };
+
+    // update project details
+    adminFactory.editProject = function (projectData) {
+        return $http.post('/api/editProject' , projectData);
+    };
+
     return adminFactory;
 });

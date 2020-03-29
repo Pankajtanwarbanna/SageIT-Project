@@ -194,4 +194,77 @@ angular.module('userCtrl',['userServices','fileModelDirective','uploadFileServic
             }
         })
     }
+})
+
+.controller('projectCtrl', function ($routeParams,user, admin) {
+
+    let app = this;
+
+    // get today date
+    app.currentDate = new Date();
+
+    function getProject() {
+        // get project
+        user.getProject($routeParams.projectID).then(function (data) {
+            if(data.data.success) {
+
+                for(let i=0;i<data.data.project[0].chat.length;i++) {
+                    for(let j=0;j<data.data.project[0].chat_info.length;j++) {
+                        if(data.data.project[0].chat_info[j].email === data.data.project[0].chat[i].user_email) {
+                            data.data.project[0].chat[i].name = data.data.project[0].chat_info[j].name;
+                            data.data.project[0].chat[i].profile_url = data.data.project[0].chat_info[j].profile_url;
+                            break;
+                        }
+                    }
+                }
+
+                app.projectData = data.data.project[0];
+            } else {
+                app.errorMsg = data.data.message;
+            }
+        });
+    }
+
+    getProject();
+
+    // add comment
+    app.addComment = function (commentData) {
+        app.commentData.projectID = $routeParams.projectID;
+        user.addComment(app.commentData).then(function (data) {
+            if(data.data.success) {
+                getProject();
+                app.commentData = '';
+            }
+        })
+    }
+
+})
+
+// assets controller
+.controller('assetsCtrl', function (user) {
+
+    let app = this;
+
+    // get my assets
+    user.getMyAssets().then(function (data) {
+        console.log(data)
+        if(data.data.success) {
+            app.assets = data.data.assets;
+        }
+    })
+
+})
+
+// my projects controller
+.controller('myProjectsCtrl', function (user) {
+
+    let app = this;
+
+    // get my project
+    user.getMyProjects().then(function (data) {
+        console.log(data.data.projects)
+        if(data.data.success) {
+            app.projects = data.data.projects;
+        }
+    })
 });

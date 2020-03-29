@@ -91,6 +91,22 @@ var app = angular.module('userRoutes', ['ngRoute'])
                 controllerAs : 'coursePage'
             })
 
+            .when('/my-assets', {
+                templateUrl : '/app/views/users/dashboard/my-assets.html',
+                controller : 'assetsCtrl',
+                controllerAs : 'assets',
+                authenticated : true,
+                permission : 'user'
+            })
+
+            .when('/my-projects', {
+                templateUrl : '/app/views/users/dashboard/my-projects.html',
+                controller : 'myProjectsCtrl',
+                controllerAs : 'myProjects',
+                authenticated : true,
+                permission : 'user'
+            })
+
 
             // admin dashboard
             .when('/manage-assets', {
@@ -109,11 +125,36 @@ var app = angular.module('userRoutes', ['ngRoute'])
                 permission : 'admin'
             })
 
+            // Project Admin Stuffs
+            .when('/add-project', {
+                templateUrl : '/app/views/admin/dashboard/add-project.html',
+                controller : 'projectManagementCtrl',
+                controllerAs : 'projectManagement',
+                authenticated : true,
+                permission : 'admin'
+            })
+
+            .when('/editProject/:projectID', {
+                templateUrl : '/app/views/admin/dashboard/editProject.html',
+                controller : 'projectManagementCtrl',
+                controllerAs : 'projectManagement',
+                authenticated : true,
+                permission : 'admin'
+            })
 
             .when('/manage-projects', {
                 templateUrl : '/app/views/admin/dashboard/manage-projects.html',
+                controller : 'projectManagementCtrl',
+                controllerAs : 'projectManagement',
                 authenticated : true,
                 permission : 'admin'
+            })
+
+            .when('/project/:projectID', {
+                templateUrl : '/app/views/users/dashboard/project.html',
+                controller : 'projectCtrl',
+                controllerAs : 'project',
+                authenticated : true
             })
 
             .when('/manage-attendance', {

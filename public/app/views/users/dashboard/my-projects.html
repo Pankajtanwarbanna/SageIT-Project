@@ -1,7 +1,7 @@
-<h1>Projects</h1>
+<h1>My Projects</h1>
 
 <div class="row mb-6">
-    <div class="col-xl-8">
+    <div class="col-xl-12">
         <form class="search-box" style="max-width: 100%">
             <div class="input-group">
                 <input class="form-control" placeholder="Search in projects..." ng-model="searchProject" type="search">
@@ -9,14 +9,11 @@
             </div>
         </form>
     </div>
-    <div class="col-xl-4">
-        <a class="btn btn-primary mr-2 mb-2" href="/add-project" role="button"><i class="icon icon-circle-add-o"></i>&nbsp; Add New Project</a>
-    </div>
 </div>
 
 <div class="row">
     <!-- Grid Item -->
-    <div class="col-xl-12" ng-repeat="project in projectManagement.projects | filter : searchProject">
+    <div class="col-xl-12" ng-repeat="project in myProjects.projects | filter : searchProject">
 
         <!-- Card -->
         <div class="card horizontal">
