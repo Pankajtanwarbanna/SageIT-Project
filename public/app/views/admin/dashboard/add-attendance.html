@@ -1,0 +1,94 @@
+<!-- Page Header -->
+<div class="dt-page__header">
+    <h1 class="dt-page__title">Add New Attendance</h1>
+</div>
+
+<div class="row">
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+
+                <!-- Form -->
+                <form ng-submit="addAttendance.addAttendanceFunction(attendanceData);" class="mb-6" ng-show="!addAttendance.addAttendanceSuccessMsg">
+                    <div class="form-row">
+                        <div class="col-sm-4 mb-3">
+                            <label>Date :  </label>
+                            <input class="form-control" type="date" name="date" ng-model="addAttendance.attendanceData.date" ng-init="addAttendance.attendanceData.date=todayDate" required>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <label>Select Employee : </label>
+                            <select class="form-control" ng-model="addAttendance.attendanceData.employee_email" required>
+                                <option value="">-- Select Employee --</option>
+                                <option ng-repeat="employee in addAttendance.employees" value="{{ employee.email }}">{{ employee.name }}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <label>Select Employee Status : </label>
+                            <select class="form-control" ng-model="addAttendance.attendanceData.status" required>
+                                <option value="">-- Select Status --</option>
+                                <option value="present">Present</option>
+                                <option value="onleave">On Leave</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" ng-if="addAttendance.attendanceData.status=='present'">
+                        <div class="col-sm-3 mb-3">
+                            <label>Sign In Time :  </label>
+                            <input class="form-control" type="time" name="date" ng-model="addAttendance.attendanceData.sign_in" required>
+                        </div>
+                        <div class="col-sm-3 mb-3">
+                            <label>Sign Out Time :  </label>
+                            <input class="form-control" type="time" name="date" ng-model="addAttendance.attendanceData.sign_out" required>
+                        </div>
+                        <div class="col-sm-3 mb-3">
+                            <label>Lunch Start Time :  </label>
+                            <input class="form-control" type="time" name="date" ng-model="addAttendance.attendanceData.lunch_in" required>
+                        </div>
+                        <div class="col-sm-3 mb-3">
+                            <label>Lunch End Time :  </label>
+                            <input class="form-control" type="time" name="date" ng-model="addAttendance.attendanceData.lunch_out" required>
+                        </div>
+                        <span class="text-danger">**Time is in 24 hours format.</span>
+                        <br>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 mb-3">
+                            <label>Any Note :</label>
+                            <textarea class="form-control" rows="3" type="text" name="notice" ng-model="addAttendance.attendanceData.note" required></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add Attendance Now</button>
+
+                </form>
+                <!-- /form -->
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-success" ng-show="addAttendance.addAttendanceSuccessMsg">
+                        <strong> Success! </strong> {{ addAttendance.addAttendanceSuccessMsg }}
+                    </div>
+                </div>
+
+
+                <div class="row show-hide-message">
+                    <div class="alert alert-danger" ng-show="addAttendance.addAttendanceErrorMsg">
+                        <strong> Oops! </strong>{{ addAttendance.addAttendanceErrorMsg }}
+                    </div>
+                </div>
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+        <!-- /card -->
+    </div>
+    <!-- /grid item -->
+</div>
+<!-- /grid -->
+

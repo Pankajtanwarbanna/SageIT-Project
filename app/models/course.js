@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var titlize = require('mongoose-title-case');
+let mongoose = require('mongoose');
+let titlize = require('mongoose-title-case');
 mongoose.set('useCreateIndex', true);
 
-var courseSchema = new mongoose.Schema({
+let courseSchema = new mongoose.Schema({
     course_name : {
         type : String,
         required : true

@@ -107,6 +107,14 @@ var app = angular.module('userRoutes', ['ngRoute'])
                 permission : 'user'
             })
 
+            .when('/my-notices', {
+                templateUrl : '/app/views/users/dashboard/my-notices.html',
+                controller : 'myNoticesCtrl',
+                controllerAs : 'myNotices',
+                authenticated : true,
+                permission : 'user'
+            })
+
 
             // admin dashboard
             .when('/manage-assets', {
@@ -160,6 +168,16 @@ var app = angular.module('userRoutes', ['ngRoute'])
             .when('/manage-attendance', {
                 templateUrl : '/app/views/admin/dashboard/manage-attendance.html',
                 authenticated : true,
+                controller : 'attendanceManagementCtrl',
+                controllerAs : 'attendanceManagement',
+                permission : 'admin'
+            })
+
+            .when('/add-attendance', {
+                templateUrl : '/app/views/admin/dashboard/add-attendance.html',
+                authenticated : true,
+                controller : 'addAttendanceCtrl',
+                controllerAs : 'addAttendance',
                 permission : 'admin'
             })
 
@@ -331,3 +349,12 @@ app.run(['$rootScope','auth','$location', 'user', function ($rootScope,auth,$loc
     })
 }]);
 
+// filter
+app.filter('dateFilter', function () {
+    return function (items, date) {
+        console.log(items);
+        console.log(date);
+        return 'pankaj'
+    }
+
+})

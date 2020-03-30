@@ -11,7 +11,7 @@ let courseRequestSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    category : {
+    department : {
         type : String,
         required : true
     },

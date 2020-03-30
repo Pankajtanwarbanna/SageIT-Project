@@ -137,5 +137,10 @@ angular.module('userServices',[])
         return $http.get('/api/getMyProjects');
     };
 
+    //get my notices
+    userFactory.getMyNotices = function () {
+        return $http.get('/api/getMyNotices');
+    };
+
     return userFactory;
 });

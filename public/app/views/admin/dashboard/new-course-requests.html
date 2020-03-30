@@ -1,5 +1,18 @@
 <h1>New Course Requests</h1>
 
+<div class="row show-hide-message">
+    <div class="alert alert-success" ng-show="courseRequestManagement.courseRequestRemovedSuccessMsg">
+        <strong> Success! </strong> {{ courseRequestManagement.courseRequestRemovedSuccessMsg }}
+    </div>
+</div>
+
+
+<div class="row show-hide-message">
+    <div class="alert alert-danger" ng-show="courseRequestManagement.courseRequestRemovedErrorMsg">
+        <strong> Oops! </strong>{{ courseRequestManagement.courseRequestRemovedErrorMsg }}
+    </div>
+</div>
+
 <div class="row">
     <!-- Grid Item -->
     <div class="col-xl-12" ng-repeat="courseRequest in courseRequestManagement.courseRequests">
@@ -30,7 +43,7 @@
                 <div class="card-body">
 
                     <!-- Badges -->
-                    <span class="badge badge-secondary text-uppercase mb-2">{{ courseRequest.category }} Category</span>
+                    <span class="badge badge-secondary text-uppercase mb-2">{{ courseRequest.department }} </span>
                     <!-- /badges -->
 
                     <!-- Card Title-->
@@ -38,11 +51,11 @@
                     <!-- Card Title-->
 
                     <!-- Card Sub Title-->
-                    <h5 class="card-subtitle"><i class="icon icon-location icon-fw"></i> {{ courseRequest.category }}</h5>
+                    <h5 class="card-subtitle"><i class="icon icon-location icon-fw"></i> {{ courseRequest.department }}</h5>
                     <!-- /card sub title-->
 
                     <!-- Content Area -->
-                    <p class="card-text text-truncate">
+                    <p class="card-text">
                         {{ courseRequest.description }}
                     </p>
 
@@ -54,7 +67,7 @@
                     <!-- /content area -->
 
                     <div>
-                        <span class="d-inline-block mr-3"><i class="icon icon-user icon-fw"></i> Posted by @{{ courseRequest.username }}</span>
+                        <span class="d-inline-block mr-3"><i class="icon icon-user icon-fw"></i> Posted by {{ courseRequest.username }}</span>
                         <span class="d-inline-block"><i class="icon icon-calendar icon-fw"></i> {{ courseRequest.timestamp | date : 'MMM d, y' }}</span>
                     </div>
 

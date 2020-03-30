@@ -7,7 +7,9 @@ var Course = require('../models/course');
 var Workshop = require('../models/workshop');
 var Workstation = require('../models/workstation');
 var CourseRequest = require('../models/courseRequest');
+var Department = require('../models/department');
 var Project = require('../models/project');
+var Notice = require('../models/notice');
 var Asset = require('../models/asset');
 var jwt = require('jsonwebtoken');
 var secret = 'pankaj';
@@ -660,14 +662,14 @@ module.exports = function (router){
 
     // get user courses
     router.get('/getCourses',auth.ensureUser, function (req, res) {
-        User.findOne({ email : req.decoded.email }).select('position').lean().exec(function (err, user) {
+        User.findOne({ email : req.decoded.email }).select('department').lean().exec(function (err, user) {
             if(err) {
                 res.json({
                     success : false,
                     message : 'Something went wrong!'
                 })
             } else {
-                Course.find({ category : user.position }, function (err, courses) {
+                Course.find({ department : user.department }, function (err, courses) {
                     if(err) {
                         res.json({
                             success : false,
@@ -686,14 +688,14 @@ module.exports = function (router){
 
     // get upcoming workshops
     router.get('/getUpcomingWorkshops', function (req, res) {
-        User.findOne({ email : req.decoded.email }).select('position').lean().exec(function (err, user) {
+        User.findOne({ email : req.decoded.email }).select('department').lean().exec(function (err, user) {
             if(err) {
                 res.json({
                     success : false,
                     message : 'Something went wrong!'
                 })
             } else {
-                Workshop.find({ category : user.position , time_date : { $gt : new Date() } }, function (err, workshops) {
+                Workshop.find({ department : user.department , time_date : { $gt : new Date() } }, function (err, workshops) {
                     if(err) {
                         res.json({
                             success : false,
@@ -778,7 +780,7 @@ module.exports = function (router){
 
         courseRequest.course = req.body.course;
         courseRequest.username = req.decoded.username;
-        courseRequest.category = req.body.category;
+        courseRequest.department = req.body.department;
         courseRequest.description = req.body.description;
         courseRequest.preferred_format = req.body.preferred_format;
         courseRequest.timestamp = new Date();
@@ -824,7 +826,6 @@ module.exports = function (router){
                 message : 'Please login.'
             })
         } else {
-            console.log('this shit reached here');
             User.findOne({ username : req.decoded.username }).select('profile_url').exec(function (err, user) {
                 if(err) {
                     res.json({
@@ -1017,6 +1018,58 @@ module.exports = function (router){
                 })
             }
         })
+    });
+
+    // get all projects
+    router.get('/getMyNotices', auth.ensureUser, function (req, res) {
+
+        User.findOne({ email : req.decoded.email }).select('department').lean().exec(function (err, user) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(!user) {
+                    res.json({
+                        success : false,
+                        message : 'User not found.'
+                    })
+                } else {
+                    Department.findOne({ department : user.department }).lean().exec(function (err, department) {
+                        if(err) {
+                            res.json({
+                                success : false,
+                                message : 'Something went wrong!'
+                            })
+                        } else {
+                            if(!department) {
+                                res.json({
+                                    success : false,
+                                    message : 'Department not found.'
+                                })
+                            } else {
+                                Notice.find({ department_id : department._id }).lean().exec(function (err, notices) {
+                                    if(err) {
+                                        console.log(err);
+                                        res.json({
+                                            success : false,
+                                            message : 'Something went wrong!'
+                                        })
+                                    } else {
+                                        res.json({
+                                            success : true,
+                                            notices : notices,
+                                            department : department.department
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+        });
     });
 
     return router;

@@ -57,9 +57,10 @@ angular.module('userCtrl',['userServices','fileModelDirective','uploadFileServic
 
 .controller('courseCtrl', function (user) {
 
-    var app = this;
+    let app = this;
 
     user.getCourses().then(function (data) {
+        console.log(data);
         if(data.data.success) {
             app.courses = data.data.courses;
         }
@@ -136,9 +137,17 @@ angular.module('userCtrl',['userServices','fileModelDirective','uploadFileServic
     }
 })
 
-.controller('courseRequestCtrl', function (user) {
-    var app = this;
+.controller('courseRequestCtrl', function (user, admin) {
+    let app = this;
 
+    //get all departments
+    admin.getAllDepartments().then(function (data) {
+        if(data.data.success) {
+            app.departments = data.data.departments;
+        }
+    });
+
+    // add new course request
     app.postNewCourseRequest = function (courseRequestData) {
         user.postNewCourseRequest(app.courseRequestData).then(function (data) {
             console.log(data);
@@ -265,6 +274,20 @@ angular.module('userCtrl',['userServices','fileModelDirective','uploadFileServic
         console.log(data.data.projects)
         if(data.data.success) {
             app.projects = data.data.projects;
+        }
+    })
+})
+
+// my projects controller
+.controller('myNoticesCtrl', function (user) {
+
+    let app = this;
+
+    // get my project
+    user.getMyNotices().then(function (data) {
+        if(data.data.success) {
+            app.notices = data.data.notices;
+            app.department = data.data.department;
         }
     })
 });

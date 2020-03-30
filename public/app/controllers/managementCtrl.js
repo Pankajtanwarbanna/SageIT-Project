@@ -313,15 +313,27 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
 
     let app = this;
 
-    admin.getNewCourseRequests().then(function (data) {
-        if(data.data.success) {
-            app.courseRequests = data.data.courseRequests;
-        }
-    });
+    // function to get all course requests
+    function getNewCourseRequests() {
+        admin.getNewCourseRequests().then(function (data) {
+            if(data.data.success) {
+                app.courseRequests = data.data.courseRequests;
+            }
+        });
+    }
 
+    getNewCourseRequests();
+
+    // remove course request
     app.removeCourseRequest = function (courseRequestID) {
         admin.removeCourseRequest(courseRequestID).then(function (data) {
             console.log(data);
+            if(data.data.success) {
+                app.courseRequestRemovedSuccessMsg = data.data.message;
+                getNewCourseRequests();
+            } else {
+                app.courseRequestRemovedErrorMsg = data.data.message;
+            }
         })
     }
 })
@@ -452,6 +464,81 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
             }
         })
     }
+
+})
+
+// attendance management ctrl
+.controller('attendanceManagementCtrl', function (admin,$scope) {
+
+    let app = this;
+
+    // today date
+    $scope.todayDate = new Date();
+
+    // get all positions
+    admin.getAllPositions().then(function (data) {
+        if(data.data.success) {
+            app.positions = data.data.positions;
+        }
+    });
+
+    //get all departments
+    admin.getAllDepartments().then(function (data) {
+        if(data.data.success) {
+            app.departments = data.data.departments;
+        }
+    });
+
+    // get all users
+    admin.getUsersAttendance($scope.todayDate).then(function (data) {
+        console.log(data);
+        if(data.data.success) {
+            app.usersAttendances = data.data.attendances;
+        }
+    });
+
+    // filter date
+    $scope.changeFilterDate = function (date) {
+        app.result = [];
+        app.usersAttendances.forEach(function (attendance) {
+            console.log((new Date(attendance.date).getDate()));
+            if((new Date(date)).getDate() === (new Date(attendance.date).getDate()) && (new Date(date)).getMonth() === (new Date(attendance.date).getMonth()) && (new Date(date)).getFullYear() === (new Date(attendance.date).getFullYear())) {
+                app.result.push(attendance);
+                console.log(attendance);
+            }
+        });
+
+        app.usersAttendances = app.result;
+    }
+})
+
+// add attendance management ctrl
+.controller('addAttendanceCtrl', function (admin,$scope) {
+
+    let app = this;
+
+    // today date
+    $scope.todayDate = new Date();
+    //app.attendanceData.date = new Date();
+
+    // get all users
+    admin.getUsers().then(function (data) {
+        if(data.data.success) {
+            app.employees = data.data.users;
+        }
+    });
+
+    // add attendance
+    app.addAttendanceFunction = function (attendanceData) {
+        admin.addAttendanceFunction(app.attendanceData).then(function (data) {
+            if(data.data.success) {
+                app.addAttendanceSuccessMsg = data.data.message;
+            } else {
+                app.addAttendanceErrorMsg = data.data.message;
+            }
+        })
+    }
+
 
 })
 

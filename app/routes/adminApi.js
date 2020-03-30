@@ -8,6 +8,7 @@ let CourseRequest = require('../models/courseRequest');
 let Asset = require('../models/asset');
 let Notice = require('../models/notice');
 let Project = require('../models/project');
+let Attendance = require('../models/attendance');
 var jwt = require('jsonwebtoken');
 var secret = 'pankaj';
 var nodemailer = require('nodemailer');
@@ -132,7 +133,7 @@ module.exports = function (router){
     });
 
     // router for get all departments
-    router.get('/getAllDepartments', auth.ensureAdmin, function (req, res) {
+    router.get('/getAllDepartments', function (req, res) {
 
         Department.find({ }).lean().exec(function (err, departments) {
             if(err) {
@@ -792,6 +793,86 @@ module.exports = function (router){
                     success : true,
                     message : 'Project successfully updated.'
                 })
+            }
+        })
+    });
+
+    //get all users attendance
+    router.get('/getUsersAttendance/:date', auth.ensureAdmin, function (req, res) {
+        Attendance.aggregate([
+            { $lookup : {
+                    from : "users",
+                    localField : "employee_email",
+                    foreignField : "email",
+                    as : "users_info"
+                }
+            }
+        ]).exec(function (err, attendances) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(!attendances) {
+                    res.json({
+                        success : false,
+                        message : 'Attendance not found.'
+                    })
+                } else {
+                    res.json({
+                        success : true,
+                        attendances : attendances
+                    })
+                }
+            }
+        })
+    });
+
+    // addAttendance router
+    router.post('/addAttendanceFunction', auth.ensureAdmin, function (req, res) {
+        Attendance.findOne({ date : new Date(), employee_email : req.body.employee_email }).lean().exec(function (err, attendance) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(!attendance) {
+                    // good to go
+                    let attend = new Attendance();
+
+                    attend.date = req.body.date;
+                    attend.employee_email = req.body.employee_email;
+                    attend.status = req.body.status;
+                    attend.sign_in = req.body.sign_in;
+                    attend.sign_out = req.body.sign_out;
+                    attend.lunch_in = req.body.lunch_in;
+                    attend.lunch_out = req.body.lunch_out;
+                    attend.note = req.body.note;
+                    attend.created_by = req.decoded.email;
+                    attend.timestamp = new Date();
+
+                    attend.save(function (err) {
+                        if(err) {
+                            res.json({
+                                success :  false,
+                                message : 'Something went wrong!'
+                            })
+                        } else {
+                            res.json({
+                                success : true,
+                                message : 'Attendance marked successfully!'
+                            })
+                        }
+                    })
+
+                } else {
+                    res.json({
+                        success : false,
+                        message : 'Attendance already marked.'
+                    })
+                }
             }
         })
     });

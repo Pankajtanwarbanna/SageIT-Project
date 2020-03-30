@@ -146,5 +146,15 @@ angular.module('adminServices',[])
         return $http.post('/api/editProject' , projectData);
     };
 
+    // get all attendance
+    adminFactory.getUsersAttendance = function (date) {
+        return $http.get('/api/getUsersAttendance/' + date);
+    };
+
+    // add attendance
+    adminFactory.addAttendanceFunction = function (attendanceData) {
+        return $http.post('/api/addAttendanceFunction', attendanceData);
+    };
+
     return adminFactory;
 });
