@@ -290,4 +290,65 @@ angular.module('userCtrl',['userServices','fileModelDirective','uploadFileServic
             app.department = data.data.department;
         }
     })
+})
+
+// my attendance controller
+.controller('myAttendanceCtrl', function (user, $scope) {
+
+    let app = this;
+
+    $scope.todayDate = new Date();
+
+    function getMyAttendanceFunction(date) {
+        //get user attendance
+        user.getMyAttendances().then(function (data) {
+            if(data.data.success) {
+                app.myAttendances = [];
+                data.data.attendances.forEach(function (attendance) {
+                    /*console.log((new Date(date).getDate()));
+                    console.log((new Date(attendance.date).getDate()));
+
+                    console.log((new Date(date).getMonth()));
+                    console.log((new Date(attendance.date).getMonth()));
+
+                    console.log((new Date(date).getFullYear()));
+                    console.log((new Date(attendance.date).getFullYear()));*/
+                    if((new Date(date)).getDate() === (new Date(attendance.date).getDate()) && (new Date(date)).getMonth() === (new Date(attendance.date).getMonth()) && (new Date(date)).getFullYear() === (new Date(attendance.date).getFullYear())) {
+                        app.myAttendances.push(attendance);
+                    }
+                });
+            } else {
+                app.errorMsg = data.data.message;
+            }
+        })
+    }
+
+    // function to get attendance
+    getMyAttendanceFunction($scope.todayDate)
+
+
+    // filter function
+    $scope.changeFilterDate = function (date) {
+        app.myAttendances = [];
+        user.getMyAttendances().then(function (data) {
+            if(data.data.success) {
+                app.myAttendances = [];
+                data.data.attendances.forEach(function (attendance) {
+                    /*console.log((new Date(date).getDate()));
+                    console.log((new Date(attendance.date).getDate()));
+
+                    console.log((new Date(date).getMonth()));
+                    console.log((new Date(attendance.date).getMonth()));
+
+                    console.log((new Date(date).getFullYear()));
+                    console.log((new Date(attendance.date).getFullYear()));*/
+                    if((new Date(date)).getDate() === (new Date(attendance.date).getDate()) && (new Date(date)).getMonth() === (new Date(attendance.date).getMonth()) && (new Date(date)).getFullYear() === (new Date(attendance.date).getFullYear())) {
+                        app.myAttendances.push(attendance);
+                    }
+                });
+            } else {
+                app.errorMsg = data.data.message;
+            }
+        });
+    };
 });

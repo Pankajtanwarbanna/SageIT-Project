@@ -490,25 +490,53 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
     });
 
     // get all users
-    admin.getUsersAttendance($scope.todayDate).then(function (data) {
-        console.log(data);
-        if(data.data.success) {
-            app.usersAttendances = data.data.attendances;
-        }
-    });
+    function getAttendanceData(date) {
+        admin.getUsersAttendance().then(function (data) {
+            if(data.data.success) {
+                app.usersAttendances = [];
+                data.data.attendances.forEach(function (attendance) {
+                    /*console.log((new Date(date).getDate()));
+                    console.log((new Date(attendance.date).getDate()));
 
-    // filter date
-    $scope.changeFilterDate = function (date) {
-        app.result = [];
-        app.usersAttendances.forEach(function (attendance) {
-            console.log((new Date(attendance.date).getDate()));
-            if((new Date(date)).getDate() === (new Date(attendance.date).getDate()) && (new Date(date)).getMonth() === (new Date(attendance.date).getMonth()) && (new Date(date)).getFullYear() === (new Date(attendance.date).getFullYear())) {
-                app.result.push(attendance);
-                console.log(attendance);
+                    console.log((new Date(date).getMonth()));
+                    console.log((new Date(attendance.date).getMonth()));
+
+                    console.log((new Date(date).getFullYear()));
+                    console.log((new Date(attendance.date).getFullYear()));*/
+                    if((new Date(date)).getDate() === (new Date(attendance.date).getDate()) && (new Date(date)).getMonth() === (new Date(attendance.date).getMonth()) && (new Date(date)).getFullYear() === (new Date(attendance.date).getFullYear())) {
+                        app.usersAttendances.push(attendance);
+                    }
+                });
+            } else {
+                app.errorMsg = data.data.message;
             }
         });
+    }
 
-        app.usersAttendances = app.result;
+    getAttendanceData($scope.todayDate);
+    // filter date
+    $scope.changeFilterDate = function (date) {
+        app.usersAttendances = [];
+        admin.getUsersAttendance().then(function (data) {
+            if(data.data.success) {
+                app.usersAttendances = [];
+                data.data.attendances.forEach(function (attendance) {
+                    /*console.log((new Date(date).getDate()));
+                    console.log((new Date(attendance.date).getDate()));
+
+                    console.log((new Date(date).getMonth()));
+                    console.log((new Date(attendance.date).getMonth()));
+
+                    console.log((new Date(date).getFullYear()));
+                    console.log((new Date(attendance.date).getFullYear()));*/
+                    if((new Date(date)).getDate() === (new Date(attendance.date).getDate()) && (new Date(date)).getMonth() === (new Date(attendance.date).getMonth()) && (new Date(date)).getFullYear() === (new Date(attendance.date).getFullYear())) {
+                        app.usersAttendances.push(attendance);
+                    }
+                });
+            } else {
+                app.errorMsg = data.data.message;
+            }
+        });
     }
 })
 
@@ -530,13 +558,20 @@ angular.module('managementController', ['adminServices','fileModelDirective','up
 
     // add attendance
     app.addAttendanceFunction = function (attendanceData) {
-        admin.addAttendanceFunction(app.attendanceData).then(function (data) {
-            if(data.data.success) {
-                app.addAttendanceSuccessMsg = data.data.message;
-            } else {
-                app.addAttendanceErrorMsg = data.data.message;
-            }
-        })
+        app.addAttendanceSuccessMsg = '';
+        app.addAttendanceErrorMsg = '';
+
+        if((new Date()).setHours(0,0,0,0) < (app.attendanceData.date).setHours(0,0,0,0)) {
+            app.addAttendanceErrorMsg = 'You can not add upcoming attendance now!'
+        } else {
+            admin.addAttendanceFunction(app.attendanceData).then(function (data) {
+                if(data.data.success) {
+                    app.addAttendanceSuccessMsg = data.data.message;
+                } else {
+                    app.addAttendanceErrorMsg = data.data.message;
+                }
+            })
+        }
     }
 
 

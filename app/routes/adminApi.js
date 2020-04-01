@@ -798,7 +798,7 @@ module.exports = function (router){
     });
 
     //get all users attendance
-    router.get('/getUsersAttendance/:date', auth.ensureAdmin, function (req, res) {
+    router.get('/getUsersAttendance', auth.ensureAdmin, function (req, res) {
         Attendance.aggregate([
             { $lookup : {
                     from : "users",
@@ -831,7 +831,7 @@ module.exports = function (router){
 
     // addAttendance router
     router.post('/addAttendanceFunction', auth.ensureAdmin, function (req, res) {
-        Attendance.findOne({ date : new Date(), employee_email : req.body.employee_email }).lean().exec(function (err, attendance) {
+        Attendance.findOne({ date : (new Date(req.body.date)).setHours(0,0,0,0), employee_email : req.body.employee_email }).lean().exec(function (err, attendance) {
             if(err) {
                 res.json({
                     success : false,
@@ -842,7 +842,7 @@ module.exports = function (router){
                     // good to go
                     let attend = new Attendance();
 
-                    attend.date = req.body.date;
+                    attend.date = (new Date(req.body.date)).setHours(0,0,0,0);
                     attend.employee_email = req.body.employee_email;
                     attend.status = req.body.status;
                     attend.sign_in = req.body.sign_in;

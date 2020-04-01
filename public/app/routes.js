@@ -115,6 +115,14 @@ var app = angular.module('userRoutes', ['ngRoute'])
                 permission : 'user'
             })
 
+            .when('/my-attendance', {
+                templateUrl : '/app/views/users/dashboard/my-attendance.html',
+                controller : 'myAttendanceCtrl',
+                controllerAs : 'myAttendance',
+                authenticated : true,
+                permission : 'user'
+            })
+
 
             // admin dashboard
             .when('/manage-assets', {

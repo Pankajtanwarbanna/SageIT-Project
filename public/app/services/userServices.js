@@ -142,5 +142,10 @@ angular.module('userServices',[])
         return $http.get('/api/getMyNotices');
     };
 
+    //get my attendances
+    userFactory.getMyAttendances = function () {
+        return $http.get('/api/getMyAttendances');
+    };
+
     return userFactory;
 });

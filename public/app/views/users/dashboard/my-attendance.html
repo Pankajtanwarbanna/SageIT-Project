@@ -1,0 +1,78 @@
+<h1> My Attendance</h1>
+
+<div class="row">
+
+    <!-- Filter Card -->
+    <!-- Grid Item -->
+    <div class="col-12">
+
+        <!-- Card -->
+        <div class="dt-card">
+
+            <!-- Card Body -->
+            <div class="dt-card__body">
+                <div class="form-row">
+                    <div class="col-sm-12 mb-3">
+                        <label>Select Date :</label>
+                        <input class="form-control" type="date" ng-model="FilterDate" ng-init="FilterDate=todayDate" ng-change="changeFilterDate(FilterDate);">
+                    </div>
+                    <span class="text-center">Total {{ users.length }} result(s) available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Item -->
+    <div class="col-xl-12" ng-show="users.length > 0">
+
+        <!-- Card -->
+        <div class="dt-card overflow-hidden">
+
+            <!-- Card Body -->
+            <div class="dt-card__body p-0">
+
+                <!-- Tables -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th class="text-uppercase" scope="col">Name</th>
+                            <th class="text-uppercase" scope="col">Department</th>
+                            <th class="text-uppercase" scope="col">Status</th>
+                            <th class="text-uppercase" scope="col">Sign In</th>
+                            <th class="text-uppercase" scope="col">Lunch Time</th>
+                            <th class="text-uppercase" scope="col">Sign Out</th>
+                            <th class="text-uppercase" scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in users=(myAttendance.myAttendances | filter : FilterEmployee | filter : FilterDepartment | filter : FilterDate)">
+                            <th scope="row">{{ $index + 1}}</th>
+                            <td>{{ main.name }}</td>
+                            <td>{{ main.department }}</td>
+                            <td>
+                                <span ng-if="user.status=='present'" class="badge badge-pill badge-success mb-1 mr-1">Present</span>
+                                <span ng-if="user.status=='onleave'" class="badge badge-pill badge-danger mb-1 mr-1">On Leave</span>
+                            </td>
+                            <td>{{ user.sign_in  | date : 'h:mm a' }}</td>
+                            <td>{{ user.lunch_in  | date : 'h:mm a' }} - {{ user.lunch_out  | date : 'h:mm a' }}</td>
+                            <td>{{ user.sign_out  | date : 'h:mm a' }}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /tables -->
+
+            </div>
+            <!-- /card body -->
+
+        </div>
+        <!-- /card -->
+
+    </div>
+    <!-- /grid item -->
+
+
+</div>

@@ -10,6 +10,7 @@ var CourseRequest = require('../models/courseRequest');
 var Department = require('../models/department');
 var Project = require('../models/project');
 var Notice = require('../models/notice');
+var Attendance = require('../models/attendance');
 var Asset = require('../models/asset');
 var jwt = require('jsonwebtoken');
 var secret = 'pankaj';
@@ -1070,6 +1071,30 @@ module.exports = function (router){
                 }
             }
         });
+    });
+
+    //get all users attendance
+    router.get('/getMyAttendances', function (req, res) {
+        Attendance.find({ employee_email: req.decoded.email }).lean().exec(function (err, attendances) {
+            if(err) {
+                res.json({
+                    success : false,
+                    message : 'Something went wrong!'
+                })
+            } else {
+                if(!attendances) {
+                    res.json({
+                        success : false,
+                        message : 'Attendance not found.'
+                    })
+                } else {
+                    res.json({
+                        success : true,
+                        attendances : attendances
+                    })
+                }
+            }
+        })
     });
 
     return router;

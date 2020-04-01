@@ -147,8 +147,8 @@ angular.module('adminServices',[])
     };
 
     // get all attendance
-    adminFactory.getUsersAttendance = function (date) {
-        return $http.get('/api/getUsersAttendance/' + date);
+    adminFactory.getUsersAttendance = function () {
+        return $http.get('/api/getUsersAttendance');
     };
 
     // add attendance
