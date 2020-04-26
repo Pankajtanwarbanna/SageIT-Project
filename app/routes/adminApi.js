@@ -104,11 +104,11 @@ module.exports = function (router){
                 } else {
 
                     let email = {
-                        from: 'Homefirst PMS Registration, support@homefirstindia.com',
+                        from: 'SageIT PMS Registration, support@sageit.com',
                         to: user.email,
-                        subject: 'Homefirst : People Management System Account activated',
+                        subject: 'Sage IT : People Management System Account activated',
                         text: 'Hello ' + user.name + 'Your account has been activated.Thank you Pankaj Tanwar',
-                        html: 'Hello <strong>' + user.name + '</strong>,<br><br> Your account has been activated.<br><br>Thank you<br>HomeFirst.'
+                        html: 'Hello <strong>' + user.name + '</strong>,<br><br> Your Sage IT account has been activated.<br><br><b>Username - </b>' + user.username +'<br> <b>Password - </b>' + user.password +'<br><br>Thank you<br>Sage IT.'
                     };
 
                     client.sendMail(email, function (err, info) {
