@@ -189,12 +189,6 @@ var app = angular.module('userRoutes', ['ngRoute'])
                 permission : 'admin'
             })
 
-            .when('/manage-leaves', {
-                templateUrl : '/app/views/admin/dashboard/manage-leaves.html',
-                authenticated : true,
-                permission : 'admin'
-            })
-
             .when('/add-notice', {
                 templateUrl : '/app/views/admin/dashboard/add-notice.html',
                 controller : 'noticeManagementCtrl',
@@ -215,12 +209,6 @@ var app = angular.module('userRoutes', ['ngRoute'])
                 templateUrl : '/app/views/admin/dashboard/manage-notice-board.html',
                 controller : 'noticeManagementCtrl',
                 controllerAs : 'noticeManagement',
-                authenticated : true,
-                permission : 'admin'
-            })
-
-            .when('/manage-recruitment', {
-                templateUrl : '/app/views/admin/dashboard/manage-recruitment.html',
                 authenticated : true,
                 permission : 'admin'
             })

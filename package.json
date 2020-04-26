@@ -1,7 +1,7 @@
 {
-  "name": "Homefirst-PMS",
+  "name": "Sage-IT-Project",
   "version": "1.0.0",
-  "description": "People Management System for Homefirst Hackathon",
+  "description": "People Management System for Sage IT Project",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

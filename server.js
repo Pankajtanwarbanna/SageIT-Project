@@ -18,10 +18,12 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api', apiRoutes, adminApiRoutes);
 global.__basedir = __dirname;
 
-let localURI = 'mongodb://localhost:27017/homefirst-pms';
+let localURI = 'mongodb://localhost:27017/sage-it-project';
+
+let mongoURI = 'mongodb://sageit:sageit123@ds339458.mlab.com:39458/sage-it';
 
 // connecting to mongo database
-mongoose.connect(localURI , { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
+mongoose.connect(mongoURI , { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
     if(err) {
         console.log(err);
     } else {
