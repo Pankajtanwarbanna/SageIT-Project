@@ -10,7 +10,7 @@
     <!-- Logo -->
     <link rel="shortcut icon" type="image/png" href="/assets/images/logo/logo.png"/>
 
-    <title>Sage IT : People Management System</title>
+    <title>Sage IT : Employee Management System</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -169,7 +169,7 @@
 
             <div ng-show="main.isLoggedIn">
                 <!-- Header -->
-                <header class="dt-header">
+                <header class="dt-header" style="background-color: #110a21">
 
                     <!-- Header container -->
                     <div class="dt-header__container">
@@ -206,7 +206,7 @@
                                         <!-- Dropdown Link -->
                                         <a href="/" class="dt-nav__link no-arrow dt-avatar-wrapper"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span style="font-size: 23px;color: white" class="dt-avatar-name">People Management System</span>
+                                        <span style="font-size: 23px;color: white" class="dt-avatar-name">Employee Management System</span>
                                         </a>
                                         <!-- /dropdown link -->
                                     </li>
@@ -259,14 +259,14 @@
                 <!-- Site Main -->
                 <main class="dt-main">
                     <!-- Sidebar -->
-                    <aside id="main-sidebar" class="dt-sidebar">
+                    <aside id="main-sidebar" class="dt-sidebar" style="background: #5445a8;">
                         <div class="dt-sidebar__container">
 
                             <!-- Sidebar Navigation -->
                             <ul class="dt-side-nav">
 
                                 <!-- Menu Header -->
-                                <li class="dt-side-nav__item dt-side-nav__header">
+                                <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                     <span class="dt-side-nav__text">Home Page</span>
                                 </li>
                                 <!-- /menu header -->
@@ -282,7 +282,7 @@
                                 <div ng-show="main.isLoggedIn && !main.authorized">
 
                                     <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Employee Facilities</span>
                                     </li>
                                     <!-- /menu header -->
@@ -319,13 +319,13 @@
                                         </a>
                                     </li>
 
-                                    <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <!-- Menu Header
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Courses</span>
                                     </li>
-                                    <!-- /menu header -->
+                                     /menu header
 
-                                    <!-- Menu Item -->
+                                     Menu Item
                                     <li class="dt-side-nav__item">
                                         <a href="/courses" class="dt-side-nav__link" title="Courses">
                                             <i class="icon icon-graduation icon-fw icon-lg"></i>
@@ -338,10 +338,10 @@
                                             <span class="dt-side-nav__text">Request New Course</span>
                                         </a>
                                     </li>
-                                    <!-- /menu item -->
+                                     /menu item -->
 
                                     <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Workshops</span>
                                     </li>
                                     <!-- /menu header -->
@@ -356,7 +356,7 @@
                                     <!-- /menu item -->
 
                                     <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Work Station</span>
                                     </li>
                                     <!-- /menu header -->
@@ -373,7 +373,7 @@
                                 <div ng-show="main.isLoggedIn && main.authorized">
 
                                     <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Employee Facilities</span>
                                     </li>
                                     <!-- /menu header -->
@@ -410,13 +410,13 @@
                                         </a>
                                     </li>
 
-                                    <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <!-- Menu Header
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Courses Management</span>
                                     </li>
-                                    <!-- /menu header -->
+                                     /menu header
 
-                                    <!-- Menu Item -->
+                                     Menu Item
                                     <li class="dt-side-nav__item">
                                         <a href="/manage-courses" class="dt-side-nav__link" title="Manage Courses">
                                             <i class="icon icon-graduation icon-fw icon-lg"></i>
@@ -435,10 +435,10 @@
                                             <span class="dt-side-nav__text">New Course Requests</span>
                                         </a>
                                     </li>
-                                    <!-- /menu item -->
+                                     /menu item -->
 
                                     <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Category Management</span>
                                     </li>
                                     <!-- /menu header -->
@@ -453,7 +453,7 @@
                                     <!-- /menu item -->
 
                                     <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Workshops Management</span>
                                     </li>
                                     <!-- /menu header -->
@@ -474,7 +474,7 @@
                                     <!-- /menu item -->
 
                                     <!-- Menu Header -->
-                                    <li class="dt-side-nav__item dt-side-nav__header">
+                                    <li class="dt-side-nav__item dt-side-nav__header" style="color: white;">
                                         <span class="dt-side-nav__text">Users Management</span>
                                     </li>
                                     <!-- /menu header -->

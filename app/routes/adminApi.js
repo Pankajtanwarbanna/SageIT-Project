@@ -58,7 +58,9 @@ module.exports = function (router){
         user.name = req.body.name;
         user.username = req.body.username;
         user.email = req.body.email;
-        user.password = Math.random().toString(36).slice(-8); // generate random password, converts to string base 36 & cut off last 8 chars
+        // generate random password
+        let randomPassword = Math.random().toString(36).slice(-8);
+        user.password =  randomPassword; // generate random password, converts to string base 36 & cut off last 8 chars
         user.position = req.body.position;
         user.department = req.body.department;
         user.branch = req.body.branch;
@@ -108,7 +110,7 @@ module.exports = function (router){
                         to: user.email,
                         subject: 'Sage IT : People Management System Account activated',
                         text: 'Hello ' + user.name + 'Your account has been activated.Thank you Pankaj Tanwar',
-                        html: 'Hello <strong>' + user.name + '</strong>,<br><br> Your Sage IT account has been activated.<br><br><b>Username - </b>' + user.username +'<br> <b>Password - </b>' + user.password +'<br><br>Thank you<br>Sage IT.'
+                        html: 'Hello <strong>' + user.name + '</strong>,<br><br> Your Sage IT account has been activated.<br><br><b>Username - </b>' + user.username +'<br> <b>Password - </b>' + randomPassword +'<br><br>Thank you<br>Sage IT.'
                     };
 
                     client.sendMail(email, function (err, info) {
